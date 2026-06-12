@@ -205,6 +205,11 @@ Unterlizenzierung oder Veröffentlichung als eigenes Produkt sind ohne vorherige
 schriftliche Erlaubnis untersagt. Unzulässige Nutzung oder Verwertung kann
 zivil- und, soweit anwendbar, strafrechtlich verfolgt werden.
 
+Da das Repository öffentlich ist, erlauben die GitHub-Nutzungsbedingungen
+anderen Personen das Ansehen und technische Forken innerhalb GitHubs. Ein
+solcher Fork gewährt keine weitergehenden Nutzungs-, Vertriebs- oder
+Vermarktungsrechte und bleibt vollständig an die `LICENSE` gebunden.
+
 Die Software wird ohne Gewährleistung und auf eigenes Risiko bereitgestellt.
 Es wird keine Haftung für Datenverlust, Betriebsunterbruch, Sicherheitsvorfälle,
 Fehlkonfigurationen, Cloud-Kosten oder sonstige direkte oder indirekte Schäden
