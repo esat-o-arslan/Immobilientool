@@ -22,7 +22,7 @@ für große Organisationen zugänglich sind. Deshalb stelle ich die technische
 Grundlage offen zur Verfügung und freue mich über Tests, Rückmeldungen und
 Beiträge aus Verwaltung, Entwicklung und PropTech.
 
-GitHub: **https://github.com/gena3ekiller/Immobilientool**
+GitHub: **https://github.com/esat-o-arslan/Immobilientool**
 
 Hinweis: Das Projekt ist eine technische Grundlage. Datenschutz, Rollen,
 kantonale Anforderungen, Apple-Signing und AWS-Betrieb müssen vor einem
@@ -42,7 +42,7 @@ Grundlage.
 Die Vorlage startet ohne personenbezogene Daten und bringt einen interaktiven
 Assistenten für Branding, AWS-Deployment und Xcode-Konfiguration mit.
 
-GitHub: **https://github.com/gena3ekiller/Immobilientool**
+GitHub: **https://github.com/esat-o-arslan/Immobilientool**
 
 #OpenSource #PropTech #Schweiz #SwiftUI #React #AWS
 

@@ -16,7 +16,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-DEFAULT_REPOSITORY = "gena3ekiller/Immobilientool"
+DEFAULT_REPOSITORY = "esat-o-arslan/Immobilientool"
 DEFAULT_BRANCH = "main"
 STATE_FILE = ROOT / ".immobilientool-config.json"
 MANIFEST_FILE = ROOT / ".immobilientool-update-manifest.json"
