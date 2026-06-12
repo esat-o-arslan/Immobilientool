@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img" aria-labelledby="title">
+  <title id="title">Immobilientool</title>
+  <rect width="160" height="160" rx="36" fill="#082a57"/>
+  <path d="M35 62 80 28l45 34v63H35Z" fill="none" stroke="#fff" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M55 125V78h50v47M80 78v47" fill="none" stroke="#ff6b57" stroke-width="10" stroke-linejoin="round"/>
+  <text x="190" y="100" fill="#082a57" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="700" letter-spacing="1">IMMOBILIENTOOL</text>
+</svg>

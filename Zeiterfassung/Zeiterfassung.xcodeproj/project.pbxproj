@@ -1,0 +1,725 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		907F29C22FB439DD000BEAD4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907F29C12FB439DD000BEAD4 /* WidgetKit.framework */; };
+		907F29C42FB439DD000BEAD4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907F29C32FB439DD000BEAD4 /* SwiftUI.framework */; };
+		907F29D52FB439DE000BEAD4 /* WorkTrackingWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 907F29BF2FB439DD000BEAD4 /* WorkTrackingWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AA0000092FC00000000000A9 /* Zeiterfassung Watch App Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = AA0000012FC00000000000A1 /* Zeiterfassung Watch App Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		907F29D32FB439DE000BEAD4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 907F299B2FB39DF5000BEAD4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 907F29BE2FB439DD000BEAD4;
+			remoteInfo = WorkTrackingWidgetExtension;
+		};
+		AA00000A2FC00000000000AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 907F299B2FB39DF5000BEAD4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA0000022FC00000000000A2;
+			remoteInfo = "Zeiterfassung Watch App Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		906455A72FC06D31004B13BA /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				AA0000092FC00000000000A9 /* Zeiterfassung Watch App Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		907F29DA2FB439DE000BEAD4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				907F29D52FB439DE000BEAD4 /* WorkTrackingWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		907F29A32FB39DF5000BEAD4 /* Zeiterfassung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zeiterfassung.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		907F29BF2FB439DD000BEAD4 /* WorkTrackingWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkTrackingWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		907F29C12FB439DD000BEAD4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		907F29C32FB439DD000BEAD4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		90B0BECD2FBEC2D6008D0F52 /* WorkTrackingWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WorkTrackingWidgetExtension.entitlements; sourceTree = "<group>"; };
+		AA0000012FC00000000000A1 /* Zeiterfassung Watch App Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Zeiterfassung Watch App Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		907F29D62FB439DE000BEAD4 /* Exceptions for "WorkTrackingWidget" folder in "WorkTrackingWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 907F29BE2FB439DD000BEAD4 /* WorkTrackingWidgetExtension */;
+		};
+		909BA22A2FC104B100E258F8 /* Exceptions for "Zeiterfassung" folder in "WorkTrackingWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				PendingStartBridge.swift,
+				PendingStartPayload.swift,
+				PendingStopBridge.swift,
+				PendingStopPayload.swift,
+				SharedDefaults.swift,
+				TrackingActionGate.swift,
+				TrackingBridge.swift,
+				TrackingIntents.swift,
+				TrackingSnapshot.swift,
+			);
+			target = 907F29BE2FB439DD000BEAD4 /* WorkTrackingWidgetExtension */;
+		};
+		90B0BECB2FBEBE36008D0F52 /* Exceptions for "WorkTrackingWidget" folder in "Zeiterfassung" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AppIntent.swift,
+				WorkAttributes.swift,
+			);
+			target = 907F29A22FB39DF5000BEAD4 /* Zeiterfassung */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		907F29A52FB39DF5000BEAD4 /* Zeiterfassung */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				909BA22A2FC104B100E258F8 /* Exceptions for "Zeiterfassung" folder in "WorkTrackingWidgetExtension" target */,
+			);
+			path = Zeiterfassung;
+			sourceTree = "<group>";
+		};
+		907F29C52FB439DD000BEAD4 /* WorkTrackingWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				90B0BECB2FBEBE36008D0F52 /* Exceptions for "WorkTrackingWidget" folder in "Zeiterfassung" target */,
+				907F29D62FB439DE000BEAD4 /* Exceptions for "WorkTrackingWidget" folder in "WorkTrackingWidgetExtension" target */,
+			);
+			path = WorkTrackingWidget;
+			sourceTree = "<group>";
+		};
+		AA00000C2FC00000000000AC /* Zeiterfassung Watch App Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Zeiterfassung Watch App Watch App";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		907F29A02FB39DF5000BEAD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		907F29BC2FB439DD000BEAD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				907F29C42FB439DD000BEAD4 /* SwiftUI.framework in Frameworks */,
+				907F29C22FB439DD000BEAD4 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA0000042FC00000000000A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		907F299A2FB39DF5000BEAD4 = {
+			isa = PBXGroup;
+			children = (
+				907F29A52FB39DF5000BEAD4 /* Zeiterfassung */,
+				907F29C52FB439DD000BEAD4 /* WorkTrackingWidget */,
+				AA00000C2FC00000000000AC /* Zeiterfassung Watch App Watch App */,
+				907F29C02FB439DD000BEAD4 /* Frameworks */,
+				907F29A42FB39DF5000BEAD4 /* Products */,
+				90B0BECD2FBEC2D6008D0F52 /* WorkTrackingWidgetExtension.entitlements */,
+			);
+			sourceTree = "<group>";
+		};
+		907F29A42FB39DF5000BEAD4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				907F29A32FB39DF5000BEAD4 /* Zeiterfassung.app */,
+				907F29BF2FB439DD000BEAD4 /* WorkTrackingWidgetExtension.appex */,
+				AA0000012FC00000000000A1 /* Zeiterfassung Watch App Watch App.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		907F29C02FB439DD000BEAD4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				907F29C12FB439DD000BEAD4 /* WidgetKit.framework */,
+				907F29C32FB439DD000BEAD4 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		907F29A22FB39DF5000BEAD4 /* Zeiterfassung */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 907F29AE2FB39DF6000BEAD4 /* Build configuration list for PBXNativeTarget "Zeiterfassung" */;
+			buildPhases = (
+				907F299F2FB39DF5000BEAD4 /* Sources */,
+				907F29A02FB39DF5000BEAD4 /* Frameworks */,
+				907F29A12FB39DF5000BEAD4 /* Resources */,
+				907F29DA2FB439DE000BEAD4 /* Embed Foundation Extensions */,
+				906455A72FC06D31004B13BA /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				907F29D42FB439DE000BEAD4 /* PBXTargetDependency */,
+				AA00000B2FC00000000000AB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				907F29A52FB39DF5000BEAD4 /* Zeiterfassung */,
+			);
+			name = Zeiterfassung;
+			packageProductDependencies = (
+			);
+			productName = Zeiterfassung;
+			productReference = 907F29A32FB39DF5000BEAD4 /* Zeiterfassung.app */;
+			productType = "com.apple.product-type.application";
+		};
+		907F29BE2FB439DD000BEAD4 /* WorkTrackingWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 907F29D72FB439DE000BEAD4 /* Build configuration list for PBXNativeTarget "WorkTrackingWidgetExtension" */;
+			buildPhases = (
+				907F29BB2FB439DD000BEAD4 /* Sources */,
+				907F29BC2FB439DD000BEAD4 /* Frameworks */,
+				907F29BD2FB439DD000BEAD4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				907F29C52FB439DD000BEAD4 /* WorkTrackingWidget */,
+			);
+			name = WorkTrackingWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = WorkTrackingWidgetExtension;
+			productReference = 907F29BF2FB439DD000BEAD4 /* WorkTrackingWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		AA0000022FC00000000000A2 /* Zeiterfassung Watch App Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000082FC00000000000A8 /* Build configuration list for PBXNativeTarget "Zeiterfassung Watch App Watch App" */;
+			buildPhases = (
+				AA0000032FC00000000000A3 /* Sources */,
+				AA0000042FC00000000000A4 /* Frameworks */,
+				AA0000052FC00000000000A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AA00000C2FC00000000000AC /* Zeiterfassung Watch App Watch App */,
+			);
+			name = "Zeiterfassung Watch App Watch App";
+			packageProductDependencies = (
+			);
+			productName = "Zeiterfassung Watch App Watch App";
+			productReference = AA0000012FC00000000000A1 /* Zeiterfassung Watch App Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		907F299B2FB39DF5000BEAD4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2650;
+				LastUpgradeCheck = 2650;
+				TargetAttributes = {
+					907F29A22FB39DF5000BEAD4 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					907F29BE2FB439DD000BEAD4 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					AA0000022FC00000000000A2 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+				};
+			};
+			buildConfigurationList = 907F299E2FB39DF5000BEAD4 /* Build configuration list for PBXProject "Zeiterfassung" */;
+			developmentRegion = de;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				de,
+			);
+			mainGroup = 907F299A2FB39DF5000BEAD4;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 907F29A42FB39DF5000BEAD4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				907F29A22FB39DF5000BEAD4 /* Zeiterfassung */,
+				907F29BE2FB439DD000BEAD4 /* WorkTrackingWidgetExtension */,
+				AA0000022FC00000000000A2 /* Zeiterfassung Watch App Watch App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		907F29A12FB39DF5000BEAD4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		907F29BD2FB439DD000BEAD4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA0000052FC00000000000A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		907F299F2FB39DF5000BEAD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		907F29BB2FB439DD000BEAD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA0000032FC00000000000A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		907F29D42FB439DE000BEAD4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 907F29BE2FB439DD000BEAD4 /* WorkTrackingWidgetExtension */;
+			targetProxy = 907F29D32FB439DE000BEAD4 /* PBXContainerItemProxy */;
+		};
+		AA00000B2FC00000000000AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA0000022FC00000000000A2 /* Zeiterfassung Watch App Watch App */;
+			targetProxy = AA00000A2FC00000000000AA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		907F29AC2FB39DF6000BEAD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		907F29AD2FB39DF6000BEAD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		907F29AF2FB39DF6000BEAD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Zeiterfassung/Zeiterfassung.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Diese App benötigt Zugriff auf die Kamera, um Belege und Spesen zu scannen.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Die App benötigt deinen Standort auch im Hintergrund, um das Geofencing für die Zeiterfassung automatisch zu starten oder zu stoppen.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Die App benötigt deinen Standort auch im Hintergrund, um das Geofencing für die Zeiterfassung automatisch zu starten oder zu stoppen.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Die App benötigt deinen Standort, um Arbeitsbeginn und Verlassen des Arbeitsbereichs zu erkennen.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.example.immobilientool.time;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		907F29B02FB39DF6000BEAD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Zeiterfassung/Zeiterfassung.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Diese App benötigt Zugriff auf die Kamera, um Belege und Spesen zu scannen.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Die App benötigt deinen Standort auch im Hintergrund, um das Geofencing für die Zeiterfassung automatisch zu starten oder zu stoppen.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Die App benötigt deinen Standort auch im Hintergrund, um das Geofencing für die Zeiterfassung automatisch zu starten oder zu stoppen.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Die App benötigt deinen Standort, um Arbeitsbeginn und Verlassen des Arbeitsbereichs zu erkennen.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.example.immobilientool.time;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		907F29D82FB439DE000BEAD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WorkTrackingWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkTrackingWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WorkTrackingWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.example.immobilientool.time.WorkTrackingWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		907F29D92FB439DE000BEAD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WorkTrackingWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkTrackingWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WorkTrackingWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.example.immobilientool.time.WorkTrackingWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AA0000062FC00000000000A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Zeiterfassung Watch App Watch App/Zeiterfassung Watch App Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Zeiterfassung;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = ch.example.immobilientool.time;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.example.immobilientool.time.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		AA0000072FC00000000000A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Zeiterfassung Watch App Watch App/Zeiterfassung Watch App Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Zeiterfassung;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = ch.example.immobilientool.time;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.example.immobilientool.time.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		907F299E2FB39DF5000BEAD4 /* Build configuration list for PBXProject "Zeiterfassung" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				907F29AC2FB39DF6000BEAD4 /* Debug */,
+				907F29AD2FB39DF6000BEAD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		907F29AE2FB39DF6000BEAD4 /* Build configuration list for PBXNativeTarget "Zeiterfassung" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				907F29AF2FB39DF6000BEAD4 /* Debug */,
+				907F29B02FB39DF6000BEAD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		907F29D72FB439DE000BEAD4 /* Build configuration list for PBXNativeTarget "WorkTrackingWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				907F29D82FB439DE000BEAD4 /* Debug */,
+				907F29D92FB439DE000BEAD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA0000082FC00000000000A8 /* Build configuration list for PBXNativeTarget "Zeiterfassung Watch App Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000062FC00000000000A6 /* Debug */,
+				AA0000072FC00000000000A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 907F299B2FB39DF5000BEAD4 /* Project object */;
+}
