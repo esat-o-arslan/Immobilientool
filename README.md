@@ -74,60 +74,253 @@ Vor der Veröffentlichung im Google Play Store gilt:
 > im Play Store genehmigt (sogenanntes Closed-Testing-Verfahren). Erst nach
 > erfolgreichem Abschluss dieser Phase ist eine Produktion im Play Store möglich.
 
-## Voraussetzungen
+---
 
-- macOS mit Xcode 16 oder neuer
-- Python 3.10 oder neuer
-- Node.js 20 oder neuer und npm
-- AWS CLI v2
-- AWS-Konto mit Berechtigungen für Amplify, CloudFormation, Cognito, AppSync,
-  DynamoDB, Lambda, S3, IAM, SES, SNS und Bedrock
-- Für App-Store-Veröffentlichungen: Apple Developer Program
+## Schritt-für-Schritt-Einrichtung
 
-AWS-Ressourcen und optionale KI-, E-Mail- und Push-Funktionen können Kosten
-verursachen. Vor einem produktiven Einsatz müssen Rollen, Datenschutz,
-Aufbewahrungsfristen, Backups und Zugriffsrechte geprüft werden.
+### Schritt 1: Voraussetzungen installieren
 
-## Schnellstart
+Alle folgenden Programme müssen auf dem Mac installiert sein, bevor das Setup gestartet wird.
+
+**Xcode 16**
+Im Mac App Store suchen und installieren. Nach der Installation einmalig öffnen,
+damit die Command Line Tools eingerichtet werden.
+
+**Homebrew** (vereinfacht alle weiteren Installationen)
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+**Python 3.10 oder neuer**
+```bash
+brew install python3
+python3 --version
+```
+
+**Node.js 20 oder neuer**
+```bash
+brew install node@20
+node --version
+npm --version
+```
+
+**AWS CLI v2**
+```bash
+brew install awscli
+aws --version
+```
+
+---
+
+### Schritt 2: AWS-Konto einrichten
+
+Das Webportal und das Backend laufen auf AWS (Amazon Web Services). Ein Konto ist zwingend erforderlich.
+
+1. Konto erstellen auf [aws.amazon.com](https://aws.amazon.com) (kostenlos, Kreditkarte erforderlich)
+2. Im AWS-Konto einen IAM-Benutzer mit den folgenden Berechtigungen anlegen:
+   `Amplify`, `CloudFormation`, `Cognito`, `AppSync`, `DynamoDB`, `Lambda`, `S3`, `IAM`, `SES`, `SNS`, `Bedrock`
+3. Zugangsdaten (Access Key + Secret) des IAM-Benutzers im Terminal eintragen:
 
 ```bash
+aws configure --profile immobilientool
+```
+
+Das Terminal fragt nacheinander nach:
+- `AWS Access Key ID` — aus dem IAM-Benutzer
+- `AWS Secret Access Key` — aus dem IAM-Benutzer
+- `Default region name` — z.B. `eu-central-1` (Frankfurt)
+- `Default output format` — einfach Enter drücken
+
+Verbindung prüfen:
+```bash
+aws sts get-caller-identity --profile immobilientool
+```
+Erscheint eine JSON-Ausgabe mit einer Account-ID, ist die Verbindung erfolgreich.
+
+> AWS-Ressourcen können Kosten verursachen. Vor produktivem Einsatz müssen
+> Rollen, Datenschutz, Backups und Zugriffsrechte geprüft werden.
+
+---
+
+### Schritt 3: Apple Developer Account einrichten (für iOS-Apps)
+
+Dieser Schritt ist nur notwendig, wenn die iOS-Apps im App Store veröffentlicht werden sollen.
+
+1. Unter [developer.apple.com](https://developer.apple.com) mit der Apple-ID anmelden
+2. Dem **Apple Developer Program** beitreten — Kosten: **109 CHF pro Jahr**
+3. Nach der Aktivierung (dauert meist wenige Stunden bis 1 Tag) im Apple Developer Portal die **Team-ID** notieren — sie findet sich unter *Membership Details*
+
+---
+
+### Schritt 4: Repository herunterladen
+
+```bash
+git clone https://github.com/esat-o-arslan/Immobilientool.git
 cd Immobilientool
+```
+
+Alternativ auf GitHub oben rechts auf **Code → Download ZIP** klicken, entpacken und in den Ordner wechseln.
+
+---
+
+### Schritt 5: Setup ausführen
+
+```bash
 python3 setup.py
 ```
 
-Der Assistent fragt unter anderem nach:
+Der Assistent führt in vier Abschnitten durch die Einrichtung und fragt nach:
 
-- Plattform- und App-Namen
-- Firmenlogo für Webportal, Zeiterfassung, Widget und Watch-App
-- getrennten App-Icons für Mieter-/Eigentümer-App und Zeiterfassung
-- Kontakt- und Admin-E-Mail
-- Apple Bundle-Prefix und Team-ID
-- AWS-CLI-Profil und Region
-- optionaler SNS-APNs-ARN
+**1/4 Namen und Branding**
+- Name der Plattform, Web-App und Apps
+- Firmenlogo (SVG/PNG/JPG, optional)
+- App-Icons für Mieter-App und Zeiterfassung (quadratisch, mind. 1024 × 1024 px, optional)
 
-Danach erstellt er eine neue Amplify-App, deployt ein neues Backend, erzeugt
-die Client-Konfigurationen, richtet das erste Admin-Konto ein, baut das
-Webportal und veröffentlicht es über Amplify Hosting.
+**2/4 Kontaktangaben**
+- Admin-E-Mail (erstes Administratorkonto)
+- Öffentliche Kontakt-E-Mail, Telefonnummer, Adresse und Webseite
 
-AWS-Zugangsdaten werden über ein lokales AWS-CLI-Profil verwendet und niemals
-in dieses Repository geschrieben. Für eine reine lokale Konfiguration ohne
-Cloud-Ressourcen:
+**3/4 Apple-Konfiguration**
+- Bundle-Prefix (z.B. `ch.meinefirma`)
+- Apple Developer Team-ID (aus Schritt 3)
 
+**4/4 AWS-Konfiguration**
+- AWS-CLI-Profil (aus Schritt 2, z.B. `immobilientool`)
+- AWS-Region (z.B. `eu-central-1`)
+- SNS APNs ARN (optional, nur für Push-Benachrichtigungen)
+
+Nach der Bestätigung der Zusammenfassung erstellt das Setup automatisch:
+- Eine neue AWS Amplify-App
+- Das gesamte Backend (DynamoDB, Cognito, AppSync, Lambda, S3)
+- Das erste Administratorkonto
+- Den Build und die Veröffentlichung des Webportals
+
+Alle Einstellungen werden lokal in `.immobilientool-config.json` gespeichert.
+
+---
+
+### Schritt 6: Handwerker importieren (optional)
+
+Nach dem Setup können bestehende Handwerkerdaten aus einer CSV-Datei importiert werden.
+Als Vorlage dient `data/handwerker.example.csv`. Das Setup fragt am Ende automatisch danach.
+
+Nachträglich importieren:
 ```bash
-python3 setup.py --configure-only
+python3 scripts/import_handwerker.py \
+  --outputs Server/amplify_outputs.json \
+  --csv /pfad/zur/handwerker.csv \
+  --email admin@meinefirma.ch
 ```
 
-Logo und App-Icons sind optional. Ohne eigene Dateien werden neutrale
-Standardgrafiken verwendet. Unterstützt werden:
+---
 
-- Firmenlogo: SVG, PNG oder JPG
-- App-Icons: quadratische PNG- oder JPG-Dateien mit mindestens 1024 × 1024 px
+### Schritt 7: iOS-Apps in Xcode einrichten
 
-Das Setup zeigt vor der Ausführung eine Zusammenfassung. Für automatisierte
-Testläufe kann die Bestätigung mit `--yes` übersprungen werden.
+**Immobilien-App:**
 
-Eine vollständige Schritt-für-Schritt-Anleitung mit Vorbereitung, Branding,
-AWS-Deployment und Xcode-Abschluss ist im `setup.py`-Assistenten integriert.
+1. `App/ImmobilienApp.xcodeproj` in Xcode öffnen
+2. Im Projekt-Navigator oben auf `ImmobilienApp` klicken → Reiter **Signing & Capabilities**
+3. Unter *Team* das konfigurierte Apple Developer Team auswählen
+4. Push Notifications und Background Modes nur aktivieren, wenn APNs/SNS in AWS eingerichtet wurden
+
+**Zeiterfassungs-App:**
+
+1. `Zeiterfassung/Zeiterfassung.xcodeproj` in Xcode öffnen
+2. Signing & Capabilities für alle drei Targets prüfen: `Zeiterfassung`, `WorkTrackingWidget`, `Zeiterfassung Watch App`
+3. Im [Apple Developer Portal](https://developer.apple.com) für die neuen Bundle-IDs anlegen:
+   - App Group (`group.ch.meinefirma.zeiterfassung`)
+   - iCloud-Container
+   - Widget Extension
+   - Watch App
+4. Auf einem echten iPhone und einer Apple Watch testen — der Simulator unterstützt nicht alle Funktionen
+
+---
+
+### Schritt 8: Apps testen und veröffentlichen
+
+**Testen mit TestFlight (empfohlen vor App Store)**
+
+TestFlight ermöglicht schnelles Testen ohne vollständige App-Store-Prüfung:
+
+1. In Xcode: **Product → Archive** erstellen
+2. Im Xcode Organizer: **Distribute App → TestFlight** auswählen und hochladen
+3. In App Store Connect unter *TestFlight* interne oder externe Tester einladen
+4. Apple prüft TestFlight-Builds in der Regel innerhalb weniger Stunden
+
+**Veröffentlichung im App Store**
+
+1. In Xcode: **Product → Archive** erstellen
+2. Im Xcode Organizer: **Distribute App → App Store Connect** auswählen
+3. In App Store Connect eine neue Version anlegen und den Build zuweisen
+4. **Immobilien-App:** Als öffentliche App einreichen
+5. **Zeiterfassungs-App:** Als **nicht gelistete App** einreichen (nicht öffentlich auffindbar,
+   Verteilung per Link oder QR-Code)
+6. Apple-Prüfung abwarten — dauert in der Regel **1 bis 1,5 Wochen**
+7. Nach Freigabe: App veröffentlichen
+
+---
+
+### Schritt 9: ERP-Synchronisation einrichten (optional)
+
+Freigegebene CSV- oder JSON-Exporte aus GARAIO REM, Rimo R5 oder ImmoTop2 lassen sich
+kontrolliert übernehmen. Zunächst eine Vorschau ohne Änderungen erstellen:
+
+```bash
+python3 scripts/sync_erp.py \
+  --provider rimo-r5 \
+  --source /pfad/zum/export \
+  --report work/sync-vorschau.json
+```
+
+Erst nach Prüfung der Vorschau mit `--apply` tatsächlich importieren:
+
+```bash
+python3 scripts/sync_erp.py \
+  --provider rimo-r5 \
+  --source /pfad/zum/export \
+  --apply
+```
+
+Der Import erstellt oder aktualisiert Liegenschaften und Kontakte, löscht aber keine Datensätze.
+Anpassbare Mapping-Profile für alle drei ERP-Systeme liegen in `integrations/mappings/`.
+
+Falls Spalten oder Exportmodule beim ERP-Anbieter fehlen, muss der jeweilige
+Hersteller oder Implementierungspartner kontaktiert werden.
+
+---
+
+## Updates einspielen
+
+Wenn eine neue Version des Immobilientools auf GitHub verfügbar ist, reicht ein einziger Befehl:
+
+```bash
+python3 update.py
+```
+
+Der Updater:
+- zeigt die installierte und die verfügbare Version
+- erstellt automatisch ein Backup unter `backups/`
+- lädt die neueste Version herunter — inklusive aller neuen Funktionen in den iOS-Apps
+- spielt Branding, Namen, Bundle-IDs und AWS-Konfiguration automatisch wieder ein
+- fragt optional, ob das bestehende AWS-Backend und Webportal ebenfalls aktualisiert werden sollen
+
+Eigene Einstellungen (`.immobilientool-config.json`, `amplify_outputs.json`) werden dabei
+**nie überschrieben**.
+
+**Nach einem Update die iOS-Apps ebenfalls aktualisieren:**
+
+1. Xcode öffnen
+2. Versionsnummer in Xcode erhöhen (z.B. 1.0 → 1.1)
+3. Archive erstellen und in App Store Connect hochladen
+4. Apple-Prüfung abwarten → Nutzer erhalten das Update automatisch im App Store
+
+Nur auf neue Version prüfen ohne zu aktualisieren:
+
+```bash
+python3 update.py --check-only
+```
+
+---
 
 ## Hilfe für Einsteiger
 
@@ -135,12 +328,11 @@ Wer wenig Erfahrung mit Terminal, AWS oder Xcode hat, kann die Installation
 gemeinsam mit einem KI-Coding-Assistenten durchführen:
 
 - [Claude Code von Anthropic](https://docs.anthropic.com/en/docs/claude-code/quickstart)
-- [OpenAI Codex](https://developers.openai.com/codex/quickstart)
-- [OpenAI Codex CLI](https://developers.openai.com/codex/cli)
+- [OpenAI Codex CLI](https://github.com/openai/codex)
 
 Öffne das Projekt im jeweiligen Assistenten und verwende beispielsweise:
 
-> Lies zuerst README.md und docs/SETUP.md. Führe mich Schritt für Schritt durch
+> Lies zuerst die README.md. Führe mich Schritt für Schritt durch
 > die Installation des Immobilientools. Erkläre jede Rückfrage verständlich,
 > prüfe Voraussetzungen und führe keine kostenpflichtige oder irreversible
 > Aktion ohne meine ausdrückliche Bestätigung aus.
@@ -150,90 +342,7 @@ KI-Assistenten können Fehler machen und Befehle sowie Dateien verändern.
 Bestätigung geprüft werden. Passwörter, API-Schlüssel und personenbezogene
 Daten dürfen nicht in Prompts oder öffentliche Chats kopiert werden.
 
-## Updates
-
-Eine bestehende Installation prüft und aktualisiert sich über:
-
-```bash
-python3 update.py
-```
-
-Der Updater zeigt die installierte und die auf GitHub verfügbare Version,
-erstellt unter `backups/` eine Sicherung und schützt lokale Mandanten- sowie
-AWS-Konfigurationen. Eigene Namen, Logos, App-Icons und Bundle-IDs werden nach
-dem Download automatisch erneut angewendet. Anschliessend kann das bestehende
-AWS-Backend samt Webportal optional aktualisiert werden.
-
-Nur nach einer neuen Version suchen:
-
-```bash
-python3 update.py --check-only
-```
-
-Weitere Einzelheiten sind im `update.py`-Skript selbst dokumentiert.
-
-## AWS-Anmeldung
-
-Falls noch kein Profil existiert:
-
-```bash
-aws configure --profile immobilientool
-aws sts get-caller-identity --profile immobilientool
-```
-
-Alternativ kann AWS IAM Identity Center/SSO verwendet werden. Das Setup prüft
-das Profil vor dem Deployment.
-
-## Handwerker übernehmen
-
-Personen- und Liegenschaftsdaten werden bewusst nicht übernommen. Handwerker
-können nach dem Deployment über eine CSV importiert werden. Als Formatvorlage
-dient `data/handwerker.example.csv`. Das Setup fragt am Ende optional nach dem
-Pfad zur CSV.
-
-Produktive Handwerkerdaten werden nicht automatisch aus einem bestehenden
-System gelesen. Das verhindert, dass der Veröffentlichungsprozess versehentlich
-auf eine produktive Datenbank zugreift.
-
-## GARAIO REM, Rimo R5 und ImmoTop2
-
-Freigegebene CSV- oder JSON-Exporte lassen sich nach dem Setup kontrolliert
-übernehmen:
-
-```bash
-python3 scripts/sync_erp.py \
-  --provider rimo-r5 \
-  --source /geschuetzter/pfad/zum/export \
-  --report work/sync-vorschau.json
-```
-
-Ohne `--apply` ist dies nur eine Vorschau. Der Import erstellt oder
-aktualisiert Liegenschaften und Kontakte, löscht aber keine Datensätze. Für
-ImmoTop2 und GARAIO REM stehen eigene anpassbare Profile bereit.
-
-Die Hersteller bieten unterschiedliche, kundenspezifisch konfigurierte
-Exporte und Schnittstellen. Falls Spalten, Berechtigungen oder ein benötigtes
-Exportmodul fehlen oder die Synchronisation fehlschlägt, muss der jeweilige
-ERP-Hersteller beziehungsweise Implementierungspartner kontaktiert werden.
-Eine vollständige Anleitung zu Feldzuordnungen und Konfiguration steht
-im Mapping-Ordner `integrations/mappings/`.
-
-## Xcode
-
-Nach dem Setup:
-
-1. `App/ImmobilienApp.xcodeproj` öffnen.
-2. Signing & Capabilities prüfen und das konfigurierte Apple-Team auswählen.
-3. Push Notifications und Background Modes nur aktivieren, wenn APNs/SNS
-   eingerichtet wurden.
-4. `Zeiterfassung/Zeiterfassung.xcodeproj` öffnen.
-5. App Group, iCloud-Container, Widget und Watch-App im Apple Developer Portal
-   für die neuen Bundle-IDs anlegen.
-6. Auf echten Geräten testen, bevor Archive für TestFlight erstellt werden.
-
-Die Mieter-/Eigentümer-App verwendet bereits den neutralen Projekt- und
-Targetnamen `ImmobilienApp`. Auch Swift-Typen, Dateien und Bild-Assets sind
-neutral benannt; sichtbare App-Namen und Bundle-IDs werden vom Setup angepasst.
+---
 
 ## GitHub und CI/CD
 
@@ -249,6 +358,8 @@ ist. Beim Verbinden mit Amplify Hosting müssen `AWS_APP_ID` und `AWS_BRANCH`
 von Amplify bereitgestellt werden. Versioniert werden nur
 `amplify_outputs.example.json`-Vorlagen. Echte `amplify_outputs.json`-Dateien
 erzeugt das Setup lokal; sie bleiben durch `.gitignore` ausgeschlossen.
+
+---
 
 ## Sicherheit und Datenschutz
 
@@ -266,6 +377,8 @@ erzeugt das Setup lokal; sie bleiben durch `.gitignore` ausgeschlossen.
 Sicherheitsmeldungen bitte nicht als öffentliche GitHub-Issue veröffentlichen,
 sondern gemäß `SECURITY.md` behandeln.
 
+---
+
 ## Feedback und Fehler
 
 Feedback, Ideen für neue Funktionen und reproduzierbare Fehlerberichte sind
@@ -276,6 +389,8 @@ willkommen:
 
 Bitte niemals Passwörter, AWS-Schlüssel, personenbezogene Daten oder Details zu
 noch nicht behobenen Sicherheitslücken öffentlich melden.
+
+---
 
 ## Urheberrecht, Nutzung und Haftung
 
