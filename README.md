@@ -19,50 +19,156 @@ Eigentümerschaften, Mitarbeitenden, Dokumente oder produktiven AWS-Verbindungen
 
 ### Webportal (Browser)
 
-Das Webportal läuft in jedem Browser und ist für die Verwaltung von Immobilien ausgelegt.
-Mitarbeitende und Verwalter haben Zugriff auf folgende Bereiche:
+Das Webportal läuft in jedem Browser und ist für Mitarbeitende und Verwalter ausgelegt.
 
-- **Liegenschaften und Einheiten** — Objekte anlegen, bearbeiten und Mieter/Eigentümer zuweisen
-- **Kontakte** — Mietende, Eigentümerschaften, Mitarbeitende und externe Kontakte verwalten
-- **Schadenfälle** — Meldungen erfassen, Handwerker zuweisen, Status verfolgen
-- **Handwerker** — Stammdaten mit Gewerk, Bewertung, Stundensatz und Einsatzgebiet
-- **Mitarbeitende** — Zugriffsrechte und Konten über AWS Cognito verwalten
-- **Suche** — Volltextsuche über alle Bereiche
-- **KI-Assistent** — kontextbezogene Unterstützung per AWS Bedrock
-- **Dokumente** — Upload und Verwaltung über AWS S3
-- **ERP-Synchronisation** — kontrollierter Import aus GARAIO REM, Rimo R5 und ImmoTop2
+**Dashboard**
+- Echtzeit-Übersicht mit Kennzahlen: offene Meldungen, laufende Arbeiten, aktive Liegenschaften, offene Einladungen, Chat-Nachrichten
+- Schnellzugriffe auf alle Bereiche
+
+**Liegenschaften**
+- Liegenschaften anlegen und bearbeiten (Name, Adresse, Liegenschaftsnummer, Status)
+- Bewirtschafter und Buchhalter pro Liegenschaft zuweisen
+- Personen verwalten: Mieter, Eigentümer, Hauswart, Beirat, Kontaktperson
+- Ein- und Auszugsdatum, Wohnungsnummer, Stockwerk erfassen
+- Kontozugang einladen und Einladungsstatus verfolgen
+- Chat pro Objekt und pro Person direkt im Portal
+
+**Schadenmeldungen**
+- Meldungen erfassen mit Titel, Kategorie, Priorität, Schadensort und Beschreibung
+- Kategorien: Heizung, Wasser, Sanitär, Elektrik, Schimmel, Fenster, Schlüssel, Unterlagen, Sonstiges
+- Prioritäten: Dringend, Hoch, Normal, Niedrig
+- Status-Workflow: Offen → In Bearbeitung → Beleg nachgereicht → Erledigt
+- Direktzuweisung an Bewirtschafter oder Buchhalter
+- Integrierter Chat pro Meldung mit Foto- und Dokumentenanhang
+- Handwerker direkt einem Fall zuweisen
+
+**Handwerker**
+- Stammdatenbank mit Firma, Gewerk, E-Mail, Telefon
+- Bewertung, Anzahl Einsätze und Durchschnittskosten pro Handwerker
+- Gewerke: Elektriker, Sanitär, Maler, Reinigung, Heizung, Schreiner, Sonstiges
+- Import aus CSV (`scripts/import_handwerker.py`)
+
+**Dokumente**
+- Dokumente hochladen und kategorisieren: Mietvertrag, Hausordnung, Versicherung, Rechnung, Abnahmeprotokoll, Plan, Schlüsselquittung
+- Versionierung und Freigabestatus: Intern, Kunde sichtbar, Archiviert
+- Dokumente einer Liegenschaft oder direkt einer Person zuweisen
+- Kundendokumente erscheinen automatisch in der iOS-App
+- Volltextsuche über alle Dokumente
+
+**Kalender**
+- Termine erfassen: Handwerkertermin, Übergabetermin, Wohnungsabnahme, Besichtigung, Eigentümerversammlung
+- Personen und Handwerker einem Termin zuweisen
+- Termine optional in der Kunden-App sichtbar schalten
+- Terminübersicht mit Status: Geplant, Bestätigt, Erledigt, Abgesagt
+
+**Schlüsselverwaltung**
+- Schlüsselbestand mit Bezeichnung und Schlüsselnummer erfassen
+- Schlüssel an Mieter, Eigentümer oder Handwerker ausgeben und zurückbuchen
+- Status: Verfügbar, Ausgeliehen, Bei Mieter/Eigentümer, Bei Handwerker, Verloren
+- Schlüsselquittung automatisch als Kundendokument freigeben
+- Vollständiger Ausgabeverlauf pro Schlüssel
+
+**Finanzen**
+- Rechnungen, Budgets, Unterhaltskosten, Nebenkosten und Einnahmen erfassen
+- Status: Offen, Bezahlt, Überfällig
+- Offene und überfällige Beträge im Überblick pro Liegenschaft
+
+**Mitarbeitende**
+- Mitarbeiterkonten anlegen und in Gruppen einteilen
+- Berechtigungen granular steuern: Meldungen einsehen/bearbeiten, Finanzen, Personal, Liegenschaften, globale Suche
+- Chat-Kanal-Zugriff pro Gruppe konfigurieren
+
+**Suche**
+- Globale Volltextsuche über Liegenschaften, Personen, Meldungen, Dokumente und Chats
+
+**KI-Assistent**
+- Vorbereitet für Amazon Bedrock: Schäden zusammenfassen, Handwerker vorschlagen, Aufträge per E-Mail vorbereiten
+
+**ERP-Synchronisation**
+- Kontrollierter Import aus GARAIO REM, Rimo R5 und ImmoTop2
+- Vorschau-Modus vor dem eigentlichen Import
+
+---
 
 ### Immobilien-App (iOS)
 
-Die SwiftUI-App richtet sich an Mietende, Eigentümerschaften und Mitarbeitende.
+Die SwiftUI-App richtet sich an zwei Nutzergruppen mit je eigener Ansicht.
 Sie wird über den regulären App Store vertrieben und erfordert pro App-Veröffentlichung
 eine Prüfung durch Apple über **App Store Connect**.
 
-- Schadenmeldungen mit Foto und Beschreibung direkt aus der App
-- Dokumentenzugriff (Mietvertrag, Nebenkostenabrechnung etc.)
+**Kunden-Ansicht (Mieter / Eigentümer)**
+- Übersicht mit Kennzahlen und Direktzugriffen
+- Schadensmeldung erfassen mit Foto, Beschreibung und Kategorie
+- Allgemeine Anfrage an die Verwaltung senden
+- Eigene Stammdaten (Adresse, Telefon, E-Mail) ändern
+- Dokumente abrufen: Mietvertrag, Nebenkostenabrechnung, Hausordnung etc.
+- Termine einsehen (Handwerkertermin, Übergabe, Abnahme)
 - Push-Benachrichtigungen bei Statusänderungen
-- Direktkontakt zur Verwaltung per Chat oder E-Mail
+
+**Mitarbeiter-Ansicht**
+- Dashboard mit offenen Meldungen und laufenden Arbeiten
+- Alle Schadenmeldungen verwalten und beantworten
+- Liegenschaften und Personen einsehen
+- Chat-Übersicht pro Liegenschaft und Person
+- Handwerker-Auslastung und Termine abrufen
+- KI-Assistent (Bedrock) für Meldungsanalyse und Auftragsvorschläge
+- Zwischen Mitarbeiter- und Kunden-Vorschau wechseln
+
+**Allgemein**
+- Login über AWS Cognito (E-Mail + Passwort)
+- Automatische Datensynchronisation mit Pull-to-Refresh
+- Dokumente direkt in der App öffnen und ansehen
 
 **App Store (iOS):** Das Apple Developer Program kostet **109 CHF pro Jahr**.
 Die Prüfung durch Apple dauert in der Regel **1 bis 1,5 Wochen**, bevor die App
 im App Store bereitgestellt werden kann.
 
+---
+
 ### Zeiterfassungs-App (iOS)
 
-Die SwiftUI-App mit Widget und Watch-App ist für Mitarbeitende und Handwerker gedacht.
-Sie erfasst Arbeitszeiten, unterstützt Geofencing und synchronisiert mit der Cloud.
+Die SwiftUI-App mit Widget, Live Activity und Watch-App ist für Mitarbeitende und Handwerker gedacht.
 
-- Zeiterfassung per Tap oder automatisch per Standort (Geofencing)
-- Widget für schnellen Zugriff auf dem Homescreen
-- Apple Watch App für Erfassung direkt am Handgelenk
-- Kanton-spezifische Feiertage (BS, BL, AG, SO)
-- Stundenübersichten und Export
+**Tracker**
+- Arbeitszeit per Tap starten und stoppen
+- Ferientag, Krankheitstag und Überzeitkompensation erfassen
+- Live Activity auf dem Sperrbildschirm zeigt laufende Zeit in Echtzeit
+- Widget auf dem Homescreen für Schnellstart/-stopp
+- Apple Watch App: Starten, Stoppen und Statusanzeige direkt am Handgelenk
+
+**Verlauf**
+- Alle Einträge tagesweise anzeigen und bearbeiten
+- Manuelle Einträge nachträglich erfassen
+- Speseneinträge mit Betrag und Kategorie erfassen
+- Einträge sperren (z.B. nach Monatsabschluss)
+
+**Auswertungen**
+- Wochen- und Monatsübersichten mit Soll-/Ist-Vergleich
+- Kanton-spezifische Feiertage: Basel-Stadt, Basel-Landschaft, Aargau, Solothurn
+- Arbeitszeit- und Spesenexport als PDF
+
+**Lohnrechner**
+- Brutto-/Nettolohn berechnen auf Basis erfasster Stunden
+- Mehrere Lohnprofile speichern und vergleichen
+
+**Portal-Synchronisation**
+- Zeiten mit dem Immobilien-Webportal synchronisieren (AWS AppSync)
+- Login über dasselbe AWS Cognito wie das Webportal
+- Urlaubsanträge direkt aus der App stellen und verfolgen
+- Urlaubskalender mit Übersicht aller Anträge und Status
+
+**Einstellungen**
+- Verbindung zum Webportal konfigurieren
+- Dokumentenscanner für Spesenkassen und Belege
+- PDF-Vorschau direkt in der App
 
 > **Wichtig:** Die Zeiterfassungs-App muss im App Store Connect als
 > **nicht gelistet** beantragt werden. Sie ist damit nicht öffentlich
 > auffindbar, kann aber per direktem Link oder QR-Code an Mitarbeitende
 > verteilt werden. Die Prüfung durch Apple dauert ebenfalls ca. **1 bis
 > 1,5 Wochen**.
+
+---
 
 ### Android (optional)
 
