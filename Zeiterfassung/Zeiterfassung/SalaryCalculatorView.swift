@@ -54,6 +54,7 @@ struct SalaryCalculatorView: View {
         case baselStadt = "Basel-Stadt"
         case baselLandschaft = "Basel-Landschaft"
         case aargau = "Aargau"
+        case solothurn = "Solothurn"
         var id: String { rawValue }
     }
 
@@ -525,6 +526,7 @@ struct SalaryCalculatorView: View {
         case .baselStadt: return "BS"
         case .baselLandschaft: return "BL"
         case .aargau: return "AG"
+        case .solothurn: return "SO"
         }
     }
 

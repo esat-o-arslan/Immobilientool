@@ -59,7 +59,7 @@ struct SetupView: View {
                         Image(systemName: "globe.europe.africa.fill")
                             .foregroundColor(.blue)
                             .imageScale(.large)
-                        Text("Feiertage (Basel-Landschaft)")
+                        Text("Feiertage")
                     }
                 }
             }
@@ -1026,8 +1026,16 @@ struct HolidaySettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \Holiday.date) private var storedHolidays: [Holiday]
     @AppStorage("syncedYearsJSON") private var syncedYearsJSON: String = "[]"
+    @AppStorage("selectedHolidayCanton") private var selectedCanton: String = "BL"
 
     @State private var sectionExpandedStates: [Int: Bool] = [:]
+
+    private let cantons: [(code: String, label: String)] = [
+        ("BS", "Basel-Stadt"),
+        ("BL", "Basel-Landschaft"),
+        ("AG", "Aargau"),
+        ("SO", "Solothurn")
+    ]
 
     private var syncedYears: Set<Int> {
         let data = syncedYearsJSON.data(using: .utf8) ?? Data()
@@ -1042,12 +1050,23 @@ struct HolidaySettingsView: View {
         }
     }
 
-    private var activeYears: [Int] {
-        years.filter { holidaysByYear[$0] != nil }
-    }
-
     var body: some View {
         List {
+            Section(header: Text("Kanton")) {
+                Picker("Kanton", selection: $selectedCanton) {
+                    ForEach(cantons, id: \.code) { c in
+                        Text(c.label).tag(c.code)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .onChange(of: selectedCanton) {
+                    // Bestehende Feiertage löschen damit beim nächsten Sync der richtige Kanton geladen wird
+                    for holiday in storedHolidays { modelContext.delete(holiday) }
+                    syncedYearsJSON = "[]"
+                    try? modelContext.save()
+                }
+            }
+
             ForEach(years, id: \.self) { year in
                 DisclosureGroup(isExpanded: Binding(
                     get: { sectionExpandedStates[year, default: false] },
@@ -1097,7 +1116,7 @@ struct HolidaySettingsView: View {
                 }
             }
         }
-        .navigationTitle("Feiertage")
+        .navigationTitle("Feiertage (\(selectedCanton))")
         .onAppear {
             if sectionExpandedStates.isEmpty {
                 sectionExpandedStates[2026] = true
@@ -1109,45 +1128,72 @@ struct HolidaySettingsView: View {
         let calendar = Calendar.current
         var holidaysToInsert: [(date: Date, name: String)] = []
 
-        let fixedHolidays: [(month: Int, day: Int, name: String)] = [
+        // Gemeinsame Feiertage aller vier Kantone
+        let gemeinsam: [(month: Int, day: Int, name: String)] = [
             (1, 1, "Neujahr"),
             (5, 1, "Tag der Arbeit"),
             (8, 1, "Nationalfeiertag"),
             (12, 25, "Weihnachten"),
             (12, 26, "Stephanstag")
         ]
-
-        for def in fixedHolidays {
+        for def in gemeinsam {
             if let date = calendar.date(from: DateComponents(year: year, month: def.month, day: def.day)) {
                 holidaysToInsert.append((date, def.name))
             }
         }
 
-        if let osterSonntag = calculateEaster(for: year) {
-            let shifts: [(days: Int, name: String)] = [
+        // Berchtoldstag: AG und SO (2. Januar)
+        if selectedCanton == "AG" || selectedCanton == "SO" {
+            if let date = calendar.date(from: DateComponents(year: year, month: 1, day: 2)) {
+                holidaysToInsert.append((date, "Berchtoldstag"))
+            }
+        }
+
+        // Osterbasierte Feiertage
+        if let ostern = calculateEaster(for: year) {
+            // Karfreitag, Ostermontag, Auffahrt, Pfingstmontag: alle vier Kantone
+            let alleKantone: [(days: Int, name: String)] = [
                 (-2, "Karfreitag"),
                 (1, "Ostermontag"),
                 (39, "Auffahrt"),
                 (50, "Pfingstmontag")
             ]
-
-            for shift in shifts {
-                if let date = calendar.date(byAdding: .day, value: shift.days, to: osterSonntag) {
+            for shift in alleKantone {
+                if let date = calendar.date(byAdding: .day, value: shift.days, to: ostern) {
                     holidaysToInsert.append((date, shift.name))
                 }
+            }
+
+            // Fronleichnam (60 Tage nach Ostern): AG und SO
+            if selectedCanton == "AG" || selectedCanton == "SO" {
+                if let date = calendar.date(byAdding: .day, value: 60, to: ostern) {
+                    holidaysToInsert.append((date, "Fronleichnam"))
+                }
+            }
+        }
+
+        // Allerheiligen (1. November): AG und SO
+        if selectedCanton == "AG" || selectedCanton == "SO" {
+            if let date = calendar.date(from: DateComponents(year: year, month: 11, day: 1)) {
+                holidaysToInsert.append((date, "Allerheiligen"))
+            }
+        }
+
+        // Maria Empfängnis (8. Dezember): AG und SO
+        if selectedCanton == "AG" || selectedCanton == "SO" {
+            if let date = calendar.date(from: DateComponents(year: year, month: 12, day: 8)) {
+                holidaysToInsert.append((date, "Maria Empfängnis"))
             }
         }
 
         for holiday in holidaysToInsert {
             if !storedHolidays.contains(where: { calendar.isDate($0.date, inSameDayAs: holiday.date) }) {
-                let newHoliday = Holiday(date: holiday.date, name: holiday.name)
-                modelContext.insert(newHoliday)
+                modelContext.insert(Holiday(date: holiday.date, name: holiday.name))
             }
         }
 
         var updatedSet = syncedYears
         updatedSet.insert(year)
-
         if let data = try? JSONEncoder().encode(updatedSet),
            let jsonString = String(data: data, encoding: .utf8) {
             syncedYearsJSON = jsonString
@@ -1176,7 +1222,6 @@ struct HolidaySettingsView: View {
         let m = (a + 11 * h + 22 * l) / 451
         let month = (h + l - 7 * m + 114) / 31
         let day = ((h + l - 7 * m + 114) % 31) + 1
-
         return Calendar.current.date(from: DateComponents(year: year, month: month, day: day))
     }
 }

@@ -28,6 +28,8 @@ struct CantonCrestView: View {
             return "canton_bs"
         case .aargau:
             return "canton_ag"
+        case .solothurn:
+            return "canton_so"
         }
     }
 
@@ -39,6 +41,8 @@ struct CantonCrestView: View {
             return "Wappen Basel-Stadt"
         case .aargau:
             return "Wappen Aargau"
+        case .solothurn:
+            return "Wappen Solothurn"
         }
     }
 }
