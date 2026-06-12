@@ -68,11 +68,6 @@ Das Webportal läuft in jedem Browser und ist für Mitarbeitende und Verwalter a
 - Schlüsselquittung automatisch als Kundendokument freigeben
 - Vollständiger Ausgabeverlauf pro Schlüssel
 
-**Finanzen**
-- Rechnungen, Budgets, Unterhaltskosten, Nebenkosten und Einnahmen erfassen
-- Status: Offen, Bezahlt, Überfällig
-- Offene und überfällige Beträge im Überblick pro Liegenschaft
-
 **Mitarbeitende**
 - Mitarbeiterkonten anlegen und in Gruppen einteilen
 - Berechtigungen granular steuern: Meldungen einsehen/bearbeiten, Finanzen, Personal, Liegenschaften, globale Suche
