@@ -15,6 +15,65 @@ Eigentümerschaften, Mitarbeitenden, Dokumente oder produktiven AWS-Verbindungen
 - `scripts/import_handwerker.py`: optionaler Handwerker-Import aus CSV
 - `scripts/sync_erp.py`: kontrollierter Import aus GARAIO REM, Rimo R5 und ImmoTop2
 
+## Was kann das Immobilientool?
+
+### Webportal (Browser)
+
+Das Webportal läuft in jedem Browser und ist für die Verwaltung von Immobilien ausgelegt.
+Mitarbeitende und Verwalter haben Zugriff auf folgende Bereiche:
+
+- **Liegenschaften und Einheiten** — Objekte anlegen, bearbeiten und Mieter/Eigentümer zuweisen
+- **Kontakte** — Mietende, Eigentümerschaften, Mitarbeitende und externe Kontakte verwalten
+- **Schadenfälle** — Meldungen erfassen, Handwerker zuweisen, Status verfolgen
+- **Handwerker** — Stammdaten mit Gewerk, Bewertung, Stundensatz und Einsatzgebiet
+- **Mitarbeitende** — Zugriffsrechte und Konten über AWS Cognito verwalten
+- **Suche** — Volltextsuche über alle Bereiche
+- **KI-Assistent** — kontextbezogene Unterstützung per AWS Bedrock
+- **Dokumente** — Upload und Verwaltung über AWS S3
+- **ERP-Synchronisation** — kontrollierter Import aus GARAIO REM, Rimo R5 und ImmoTop2
+
+### Immobilien-App (iOS)
+
+Die SwiftUI-App richtet sich an Mietende, Eigentümerschaften und Mitarbeitende.
+Sie wird über den regulären App Store vertrieben und erfordert pro App-Veröffentlichung
+eine Prüfung durch Apple über **App Store Connect**.
+
+- Schadenmeldungen mit Foto und Beschreibung direkt aus der App
+- Dokumentenzugriff (Mietvertrag, Nebenkostenabrechnung etc.)
+- Push-Benachrichtigungen bei Statusänderungen
+- Direktkontakt zur Verwaltung per Chat oder E-Mail
+
+**App Store (iOS):** Das Apple Developer Program kostet **109 CHF pro Jahr**.
+Die Prüfung durch Apple dauert in der Regel **1 bis 1,5 Wochen**, bevor die App
+im App Store bereitgestellt werden kann.
+
+### Zeiterfassungs-App (iOS)
+
+Die SwiftUI-App mit Widget und Watch-App ist für Mitarbeitende und Handwerker gedacht.
+Sie erfasst Arbeitszeiten, unterstützt Geofencing und synchronisiert mit der Cloud.
+
+- Zeiterfassung per Tap oder automatisch per Standort (Geofencing)
+- Widget für schnellen Zugriff auf dem Homescreen
+- Apple Watch App für Erfassung direkt am Handgelenk
+- Kanton-spezifische Feiertage (BS, BL, AG, SO)
+- Stundenübersichten und Export
+
+> **Wichtig:** Die Zeiterfassungs-App muss im App Store Connect als
+> **nicht gelistet** beantragt werden. Sie ist damit nicht öffentlich
+> auffindbar, kann aber per direktem Link oder QR-Code an Mitarbeitende
+> verteilt werden. Die Prüfung durch Apple dauert ebenfalls ca. **1 bis
+> 1,5 Wochen**.
+
+### Android (optional)
+
+Eine Android-Version ist technisch möglich, da das Backend (AWS Amplify) plattformunabhängig ist.
+Vor der Veröffentlichung im Google Play Store gilt:
+
+> **Neue Apps müssen von mindestens 20 Personen über einen Zeitraum von
+> mindestens 14 Tagen aktiv getestet werden**, bevor Google eine Vollveröffentlichung
+> im Play Store genehmigt (sogenanntes Closed-Testing-Verfahren). Erst nach
+> erfolgreichem Abschluss dieser Phase ist eine Produktion im Play Store möglich.
+
 ## Voraussetzungen
 
 - macOS mit Xcode 16 oder neuer
@@ -68,7 +127,7 @@ Das Setup zeigt vor der Ausführung eine Zusammenfassung. Für automatisierte
 Testläufe kann die Bestätigung mit `--yes` übersprungen werden.
 
 Eine vollständige Schritt-für-Schritt-Anleitung mit Vorbereitung, Branding,
-AWS-Deployment und Xcode-Abschluss steht in [`docs/SETUP.md`](docs/SETUP.md).
+AWS-Deployment und Xcode-Abschluss ist im `setup.py`-Assistenten integriert.
 
 ## Hilfe für Einsteiger
 
@@ -111,7 +170,7 @@ Nur nach einer neuen Version suchen:
 python3 update.py --check-only
 ```
 
-Weitere Einzelheiten stehen in [`docs/SETUP.md`](docs/SETUP.md#9-updates).
+Weitere Einzelheiten sind im `update.py`-Skript selbst dokumentiert.
 
 ## AWS-Anmeldung
 
@@ -156,8 +215,8 @@ Die Hersteller bieten unterschiedliche, kundenspezifisch konfigurierte
 Exporte und Schnittstellen. Falls Spalten, Berechtigungen oder ein benötigtes
 Exportmodul fehlen oder die Synchronisation fehlschlägt, muss der jeweilige
 ERP-Hersteller beziehungsweise Implementierungspartner kontaktiert werden.
-Eine vollständige Anleitung steht in
-[`docs/ERP-SYNC.md`](docs/ERP-SYNC.md).
+Eine vollständige Anleitung zu Feldzuordnungen und Konfiguration steht
+im Mapping-Ordner `integrations/mappings/`.
 
 ## Xcode
 
