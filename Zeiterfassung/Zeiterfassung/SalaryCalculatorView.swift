@@ -682,6 +682,12 @@ struct SalaryCalculatorView: View {
             rates = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.2, 0.7, 1.2,
                      1.7, 2.2, 2.7, 3.3, 3.8, 4.4, 5.1, 5.6, 6.2, 6.8,
                      7.5, 8.6, 9.5, 11.4, 13.2]
+
+        // ── Solothurn – Platzhalter (ESTV-Tarife bitte ergänzen) ─────────────
+        default:
+            rates = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                     0.0, 0.0, 0.0, 0.0, 0.0]
         }
 
         return Array(zip(incomes, rates))
