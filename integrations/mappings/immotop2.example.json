@@ -1,0 +1,46 @@
+{
+  "provider": "ImmoTop2",
+  "datasets": [
+    {
+      "order": 10,
+      "file": "liegenschaften.csv",
+      "model": "Liegenschaft",
+      "key_field": "liegenschaftNummer",
+      "delimiter": ";",
+      "fields": {
+        "liegenschaftNummer": {"source": "Liegenschaftsnummer", "transform": "string"},
+        "name": {"source": "Liegenschaft", "transform": "name"},
+        "strasse": {"source": "Adresse", "transform": "string"},
+        "plz": {"source": "Postleitzahl", "transform": "string"},
+        "ort": {"source": "Ort", "transform": "string"},
+        "einheiten": {"source": "Einheiten", "transform": "integer"}
+      },
+      "defaults": {"typ": "Mietliegenschaft", "status": "Aktiv"}
+    },
+    {
+      "order": 20,
+      "file": "kontakte.csv",
+      "model": "KontaktPerson",
+      "key_field": "email",
+      "delimiter": ";",
+      "fields": {
+        "vorname": {"source": "Vorname", "transform": "name"},
+        "nachname": {"source": "Name", "transform": "name"},
+        "name": {"join": ["Vorname", "Name"], "separator": " ", "transform": "name"},
+        "rolle": {"source": "Kontaktart", "transform": "string"},
+        "email": {"source": "Email", "transform": "lower"},
+        "telefon": {"source": "Telefon", "transform": "string"},
+        "wohnungsNummer": {"source": "Mietobjekt", "transform": "string"}
+      },
+      "defaults": {"rolle": "Mieter", "kontoStatus": "Nicht eingeladen", "portalSichtbar": true},
+      "references": {
+        "liegenschaftId": {
+          "source": "Liegenschaftsnummer",
+          "model": "Liegenschaft",
+          "target_key": "liegenschaftNummer",
+          "required": true
+        }
+      }
+    }
+  ]
+}

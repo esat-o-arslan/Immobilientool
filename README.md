@@ -13,6 +13,7 @@ Eigentümerschaften, Mitarbeitenden, Dokumente oder produktiven AWS-Verbindungen
 - `setup.py`: interaktive Ersteinrichtung und AWS-Deployment
 - `scripts/verify_public_release.py`: Prüfung auf Secrets und bekannte Produktiv-IDs
 - `scripts/import_handwerker.py`: optionaler Handwerker-Import aus CSV
+- `scripts/sync_erp.py`: kontrollierter Import aus GARAIO REM, Rimo R5 und ImmoTop2
 
 ## Voraussetzungen
 
@@ -134,6 +135,29 @@ Pfad zur CSV.
 Produktive Handwerkerdaten werden nicht automatisch aus einem bestehenden
 System gelesen. Das verhindert, dass der Veröffentlichungsprozess versehentlich
 auf eine produktive Datenbank zugreift.
+
+## GARAIO REM, Rimo R5 und ImmoTop2
+
+Freigegebene CSV- oder JSON-Exporte lassen sich nach dem Setup kontrolliert
+übernehmen:
+
+```bash
+python3 scripts/sync_erp.py \
+  --provider rimo-r5 \
+  --source /geschuetzter/pfad/zum/export \
+  --report work/sync-vorschau.json
+```
+
+Ohne `--apply` ist dies nur eine Vorschau. Der Import erstellt oder
+aktualisiert Liegenschaften und Kontakte, löscht aber keine Datensätze. Für
+ImmoTop2 und GARAIO REM stehen eigene anpassbare Profile bereit.
+
+Die Hersteller bieten unterschiedliche, kundenspezifisch konfigurierte
+Exporte und Schnittstellen. Falls Spalten, Berechtigungen oder ein benötigtes
+Exportmodul fehlen oder die Synchronisation fehlschlägt, muss der jeweilige
+ERP-Hersteller beziehungsweise Implementierungspartner kontaktiert werden.
+Eine vollständige Anleitung steht in
+[`docs/ERP-SYNC.md`](docs/ERP-SYNC.md).
 
 ## Xcode
 

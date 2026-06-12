@@ -1,0 +1,46 @@
+{
+  "provider": "GARAIO REM",
+  "datasets": [
+    {
+      "order": 10,
+      "file": "liegenschaften.csv",
+      "model": "Liegenschaft",
+      "key_field": "liegenschaftNummer",
+      "delimiter": ";",
+      "fields": {
+        "liegenschaftNummer": {"source": "PropertyNumber", "transform": "string"},
+        "name": {"source": "PropertyName", "transform": "name"},
+        "strasse": {"source": "Street", "transform": "string"},
+        "plz": {"source": "ZipCode", "transform": "string"},
+        "ort": {"source": "City", "transform": "string"},
+        "einheiten": {"source": "UnitCount", "transform": "integer"}
+      },
+      "defaults": {"typ": "Mietliegenschaft", "status": "Aktiv"}
+    },
+    {
+      "order": 20,
+      "file": "kontakte.csv",
+      "model": "KontaktPerson",
+      "key_field": "email",
+      "delimiter": ";",
+      "fields": {
+        "vorname": {"source": "FirstName", "transform": "name"},
+        "nachname": {"source": "LastName", "transform": "name"},
+        "name": {"join": ["FirstName", "LastName"], "separator": " ", "transform": "name"},
+        "rolle": {"source": "Role", "transform": "string"},
+        "email": {"source": "Email", "transform": "lower"},
+        "telefon": {"source": "Phone", "transform": "string"},
+        "wohnungsNummer": {"source": "UnitNumber", "transform": "string"}
+      },
+      "defaults": {"rolle": "Mieter", "kontoStatus": "Nicht eingeladen", "portalSichtbar": true},
+      "references": {
+        "liegenschaftId": {
+          "source": "PropertyNumber",
+          "model": "Liegenschaft",
+          "target_key": "liegenschaftNummer",
+          "required": true
+        }
+      }
+    }
+  ]
+}

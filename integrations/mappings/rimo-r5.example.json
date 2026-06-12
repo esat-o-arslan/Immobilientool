@@ -1,0 +1,46 @@
+{
+  "provider": "Rimo R5",
+  "datasets": [
+    {
+      "order": 10,
+      "file": "liegenschaften.csv",
+      "model": "Liegenschaft",
+      "key_field": "liegenschaftNummer",
+      "delimiter": ";",
+      "fields": {
+        "liegenschaftNummer": {"source": "ObjektNr", "transform": "string"},
+        "name": {"source": "ObjektBezeichnung", "transform": "name"},
+        "strasse": {"source": "Strasse", "transform": "string"},
+        "plz": {"source": "PLZ", "transform": "string"},
+        "ort": {"source": "Ort", "transform": "string"},
+        "einheiten": {"source": "AnzahlEinheiten", "transform": "integer"}
+      },
+      "defaults": {"typ": "Mietliegenschaft", "status": "Aktiv"}
+    },
+    {
+      "order": 20,
+      "file": "kontakte.csv",
+      "model": "KontaktPerson",
+      "key_field": "email",
+      "delimiter": ";",
+      "fields": {
+        "vorname": {"source": "Vorname", "transform": "name"},
+        "nachname": {"source": "Nachname", "transform": "name"},
+        "name": {"join": ["Vorname", "Nachname"], "separator": " ", "transform": "name"},
+        "rolle": {"source": "Rolle", "transform": "string"},
+        "email": {"source": "E-Mail", "transform": "lower"},
+        "telefon": {"source": "Telefon", "transform": "string"},
+        "wohnungsNummer": {"source": "EinheitNr", "transform": "string"}
+      },
+      "defaults": {"rolle": "Mieter", "kontoStatus": "Nicht eingeladen", "portalSichtbar": true},
+      "references": {
+        "liegenschaftId": {
+          "source": "ObjektNr",
+          "model": "Liegenschaft",
+          "target_key": "liegenschaftNummer",
+          "required": true
+        }
+      }
+    }
+  ]
+}

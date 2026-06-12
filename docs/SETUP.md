@@ -86,6 +86,12 @@ Es werden keine Liegenschaften, Mitarbeitenden oder anderen Personendaten aus
 einem bestehenden System kopiert. Handwerker können danach freiwillig aus
 einer eigenen CSV importiert werden.
 
+Nach erfolgreichem Deployment können freigegebene Exporte aus GARAIO REM,
+Rimo R5 oder ImmoTop2 mit einer Vorschau und expliziter Bestätigung importiert
+werden. Siehe [`ERP-SYNC.md`](ERP-SYNC.md). Bei fehlenden Exportmodulen,
+Feldbeschreibungen oder Schnittstellenrechten ist der jeweilige Hersteller
+oder Implementierungspartner einzubeziehen.
+
 ## 6. Erst lokal ausprobieren
 
 Für Branding und Xcode-Konfiguration ohne AWS-Ressourcen:
