@@ -2,54 +2,78 @@
 
 ## Hauptbeitrag
 
-Ich veröffentliche heute **Immobilientool** als kostenlos verfügbare,
-source-available Grundlage für
-Schweizer Immobilienverwaltungen.
+Ich freue mich, heute mein Projekt **Immobilientool** vorzustellen.
 
-Das Projekt verbindet drei Bereiche:
+Die kostenlos verfügbare, source-available Plattform richtet sich an
+Schweizer Immobilienverwaltungen und verbindet drei Anwendungen:
 
 - ein webbasiertes Verwaltungsportal
 - eine iOS-App für Mietende und Eigentümerschaften
-- eine iOS-Zeiterfassung inklusive Widget und Watch-App
+- eine iOS-Zeiterfassung inklusive Widget und Apple-Watch-App
 
-Der Fokus liegt auf einem nachvollziehbaren Setup für Verwaltungen in der
-Region Basel, im Aargau und in Solothurn. Eine neue Installation startet ohne
-Liegenschafts-, Kunden- oder Mitarbeiterdaten und erzeugt eine eigene,
-getrennte AWS-Umgebung. App-Namen, Bundle-IDs, Kontaktangaben und das Deployment
-werden über einen interaktiven Setup-Assistenten konfiguriert.
+Das Webportal unterstützt unter anderem Liegenschaften, Kontakte,
+Schadenfälle, Dokumente, Termine, Schlüssel, Handwerker und Mitarbeitende.
+Über die App können Mietende und Eigentümerschaften mit der Verwaltung
+kommunizieren, Schäden melden und freigegebene Informationen abrufen.
 
-Mir ist wichtig, dass digitale Werkzeuge in der Immobilienverwaltung nicht nur
-für große Organisationen zugänglich sind. Deshalb stelle ich die technische
-Grundlage offen zur Verfügung und freue mich über Tests, Rückmeldungen und
-Beiträge aus Verwaltung, Entwicklung und PropTech.
+Neu hinzugekommen ist eine kontrollierte Import- und
+Update-Synchronisation für freigegebene CSV- oder JSON-Exporte aus
+**GARAIO REM, Rimo R5 und ImmoTop2**. Vor jeder Übernahme gibt es einen
+Dry-Run mit Validierung und Bericht. Datensätze werden dabei nicht automatisch
+gelöscht. Da Exportfelder und Schnittstellen je nach ERP-Version und
+Kundeneinrichtung variieren, können die mitgelieferten Profile angepasst
+werden; bei fehlenden Modulen oder Rechten ist der jeweilige Hersteller
+einzubeziehen.
+
+Ein interaktiver Setup-Assistent konfiguriert Branding, Firmenlogo, App-Icons,
+App-Namen, Bundle-IDs, AWS-Deployment und das erste Administrationskonto.
+Bestehende Installationen können über den integrierten Updater neue
+GitHub-Versionen einspielen.
+
+Das Projekt startet ohne personenbezogene Daten und ohne Verbindung zu einer
+bestehenden produktiven Umgebung. Datenschutz, Berechtigungen, Apple-Signing,
+AWS-Kosten und der produktive Betrieb müssen durch die einsetzende
+Organisation geprüft werden.
+
+Ich freue mich über fachliches Feedback, Funktionsideen und reproduzierbare
+Fehlermeldungen.
 
 GitHub: **https://github.com/esat-o-arslan/Immobilientool**
 
-Hinweis: Das Projekt ist eine technische Grundlage. Datenschutz, Rollen,
-kantonale Anforderungen, Apple-Signing und AWS-Betrieb müssen vor einem
-produktiven Einsatz durch die jeweilige Organisation geprüft werden.
+Kontakt: **e.arslan2025@gmail.com**
 
-#SourceAvailable #PropTech #Immobilienverwaltung #Digitalisierung #Schweiz
-#Basel #Aargau #Solothurn #AWS #SwiftUI #React
+#PropTech #Immobilienverwaltung #Digitalisierung #Schweiz #Basel
+#Aargau #Solothurn #SwiftUI #React #AWS #SourceAvailable
 
 ## Kürzere Variante
 
-**Immobilienverwaltung, offen gedacht.**
+Ich veröffentliche **Immobilientool** als kostenlos verfügbare,
+source-available Grundlage für Schweizer Immobilienverwaltungen:
+Webportal, Mieter-/Eigentümer-App und Zeiterfassung in einer gemeinsamen
+AWS-basierten Plattform.
 
-Ich veröffentliche Immobilientool als kostenlos verfügbares,
-source-available Projekt: Webportal,
-Mieter-/Eigentümer-App und Zeiterfassung in einer gemeinsamen AWS-basierten
-Grundlage.
+Neu ist eine kontrollierte Import- und Update-Synchronisation für freigegebene
+Exporte aus GARAIO REM, Rimo R5 und ImmoTop2, inklusive Dry-Run, Validierung
+und anpassbaren Herstellerprofilen.
 
-Die Vorlage startet ohne personenbezogene Daten und bringt einen interaktiven
-Assistenten für Branding, AWS-Deployment und Xcode-Konfiguration mit.
+Setup, Branding, App-Namen, AWS-Deployment und spätere Updates werden durch
+Assistenten begleitet.
 
 GitHub: **https://github.com/esat-o-arslan/Immobilientool**
 
-#SourceAvailable #PropTech #Schweiz #SwiftUI #React #AWS
+#PropTech #Immobilienverwaltung #Digitalisierung #Schweiz #SwiftUI #AWS
 
 ## Bildtexte
 
-1. `Immobilienverwaltung. Offen gedacht.`
-2. `Portal · Mieter-App · Zeiterfassung`
-3. `Für Basel · Aargau · Solothurn`
+1. `Immobilienverwaltung. Digital verbunden.`
+2. `Webportal · Mieter-App · Zeiterfassung`
+3. `Import für GARAIO REM · Rimo R5 · ImmoTop2`
+
+## Fertige Bilder
+
+- `docs/images/linkedin-webportal-v2.png`
+- `docs/images/linkedin-mieter-app-v2.png`
+- `docs/images/linkedin-zeiterfassung-v2.png`
+
+Die Bilder sind neutrale Produktvisualisierungen und enthalten keine echten
+Mandanten-, Personen- oder Liegenschaftsdaten.
