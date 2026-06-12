@@ -144,7 +144,7 @@ Erscheint eine JSON-Ausgabe mit einer Account-ID, ist die Verbindung erfolgreich
 
 ### Schritt 3: Apple Developer Account einrichten (für iOS-Apps)
 
-Dieser Schritt ist nur notwendig, wenn die iOS-Apps im App Store veröffentlicht werden sollen.
+Dieser Schritt ist **nur für die Veröffentlichung im App Store** notwendig. Wer die Apps lediglich lokal auf dem eigenen Gerät installieren oder im Xcode-Simulator testen möchte, kann diesen Schritt überspringen.
 
 1. Unter [developer.apple.com](https://developer.apple.com) mit der Apple-ID anmelden
 2. Dem **Apple Developer Program** beitreten — Kosten: **109 CHF pro Jahr**
