@@ -3,7 +3,7 @@ import { BedrockRuntimeClient, ConverseCommand } from '@aws-sdk/client-bedrock-r
 const bedrock = new BedrockRuntimeClient({ region: 'eu-central-1' });
 const MODEL_ID = 'eu.anthropic.claude-haiku-4-5-20251001-v1:0';
 
-const BASE_SYSTEM = `Du bist IMMOBILIENTOOL KI, der vollständige Admin-Assistent der Immobilientool (Liestal, Schweiz).
+const BASE_SYSTEM = `Du bist IMMOBILIENTOOL KI, der vollständige Admin-Assistent der Immobilientool.
 Du hast VOLLEN ADMIN-ZUGANG zu allen Portaldaten. Du kannst lesen, erstellen, aktualisieren UND löschen.
 Du beantwortest Fragen von Mitarbeitern UND Kunden professionell auf Deutsch.
 
@@ -78,15 +78,26 @@ export const handler = async (event: { arguments?: Args }) => {
   }
   if (!messages.length) return { ok: false, antwort: 'Keine Nachrichten.', aktionen: null };
 
-  const systemParts = [BASE_SYSTEM];
-  if (args.systemPrompt?.trim()) systemParts.push(`\nAKTUELLER KONTEXT:\n${args.systemPrompt.trim()}`);
-  if (args.kontext?.trim()) systemParts.push(`\nPORTAL-DATEN:\n${args.kontext.trim()}`);
+  // Context from the client is injected as the first user message, not into the
+  // system prompt, so it cannot override or extend the base instructions.
+  const contextParts: string[] = [];
+  if (args.systemPrompt?.trim()) contextParts.push(`AKTUELLER KONTEXT:\n${args.systemPrompt.trim()}`);
+  if (args.kontext?.trim()) contextParts.push(`PORTAL-DATEN:\n${args.kontext.trim()}`);
+
+  let augmentedMessages = messages.map(m => ({ role: m.role, content: [{ text: m.content }] }));
+  if (contextParts.length > 0) {
+    augmentedMessages = [
+      { role: 'user' as const, content: [{ text: contextParts.join('\n\n') }] },
+      { role: 'assistant' as const, content: [{ text: 'Verstanden. Ich berücksichtige diesen Kontext.' }] },
+      ...augmentedMessages,
+    ];
+  }
 
   try {
     const cmd = new ConverseCommand({
       modelId: MODEL_ID,
-      system: [{ text: systemParts.join('\n') }],
-      messages: messages.map(m => ({ role: m.role, content: [{ text: m.content }] })),
+      system: [{ text: BASE_SYSTEM }],
+      messages: augmentedMessages,
       inferenceConfig: { maxTokens: 4096, temperature: 0.3 },
     });
 

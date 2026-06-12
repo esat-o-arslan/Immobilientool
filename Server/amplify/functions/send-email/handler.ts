@@ -10,12 +10,24 @@ type EmailArgs = {
   replyTo?: string;
 };
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function isValidEmail(addr: string): boolean {
+  return EMAIL_RE.test(addr) && addr.length <= 320;
+}
+
 export const handler = async (event: { arguments?: EmailArgs }) => {
   const args = event.arguments ?? {};
   const { to, subject, htmlBody, textBody } = args;
 
   if (!to || !subject) {
     return { ok: false, message: 'Empfänger und Betreff sind erforderlich.' };
+  }
+  if (!isValidEmail(to)) {
+    return { ok: false, message: 'Ungültige Empfängeradresse.' };
+  }
+  if (args.replyTo && !isValidEmail(args.replyTo)) {
+    return { ok: false, message: 'Ungültige Antwortadresse.' };
   }
 
   const fromEmail = process.env.FROM_EMAIL ?? 'info@example.invalid';

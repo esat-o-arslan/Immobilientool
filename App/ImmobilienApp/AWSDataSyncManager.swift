@@ -120,10 +120,6 @@ final class AWSDataSyncManager: ObservableObject {
                 }
 
             } catch let authError as AuthError {
-                print("AUTH ERROR DESCRIPTION: \(authError.errorDescription)")
-                print("AUTH ERROR SUGGESTION: \(authError.recoverySuggestion)")
-                print("AUTH ERROR UNDERLYING: \(String(describing: authError.underlyingError))")
-
                 let beschreibung = authError.errorDescription
                 let lower = beschreibung.lowercased()
 
@@ -133,26 +129,24 @@ final class AWSDataSyncManager: ObservableObject {
 
                     if lower.contains("already a user in signedin state") {
                         letzteFehlermeldung = "Es ist bereits ein Benutzer angemeldet."
-                    } else if lower.contains("incorrect username or password") {
-                        letzteFehlermeldung = "E-Mail/Benutzername oder Passwort ist falsch."
-                    } else if lower.contains("user does not exist") {
-                        letzteFehlermeldung = "Dieses Konto existiert nicht."
+                    } else if lower.contains("incorrect username or password")
+                                || lower.contains("user does not exist") {
+                        // Generic message to prevent user enumeration
+                        letzteFehlermeldung = "E-Mail oder Passwort ist falsch."
                     } else if lower.contains("not confirmed") {
                         letzteFehlermeldung = "Ihr Konto ist noch nicht bestätigt."
                     } else if lower.contains("network") {
                         letzteFehlermeldung = "Netzwerkfehler. Bitte erneut versuchen."
                     } else {
-                        letzteFehlermeldung = "Anmelden fehlgeschlagen: \(authError.errorDescription)"
+                        letzteFehlermeldung = "Anmelden fehlgeschlagen. Bitte erneut versuchen."
                     }
                 }
 
             } catch {
-                print("UNBEKANNTER LOGIN-FEHLER: \(error)")
-
                 await MainActor.run {
                     ladeDaten = false
                     istEingeloggt = false
-                    letzteFehlermeldung = "Anmelden fehlgeschlagen."
+                    letzteFehlermeldung = "Anmelden fehlgeschlagen. Bitte erneut versuchen."
                 }
             }
         }
@@ -188,25 +182,19 @@ final class AWSDataSyncManager: ObservableObject {
                         istEingeloggt = true
                         cacheSchadenfaelleLaden()
                     }
-
                     await ladePortalCloudDaten()
                 } else {
-                    let email = KeychainHelper.laden(fuer: "login_email") ?? ""
-                    let passwort = KeychainHelper.laden(fuer: "login_passwort") ?? ""
-
-                    if !email.isEmpty && !passwort.isEmpty {
-                        login(email: email, kennwort: passwort)
-                    } else {
-                        await MainActor.run {
-                            istEingeloggt = false
-                        }
+                    // Session abgelaufen — Benutzer muss sich neu anmelden.
+                    // Passwörter werden nie persistent gespeichert; Amplify verwaltet
+                    // Refresh-Tokens intern über sichere Systemspeicher.
+                    await MainActor.run {
+                        istEingeloggt = false
                     }
                 }
             } catch {
                 await MainActor.run {
                     cacheSchadenfaelleLaden()
                     istEingeloggt = false
-                    letzteFehlermeldung = "Session konnte nicht geladen werden."
                 }
             }
         }
@@ -544,11 +532,8 @@ final class AWSDataSyncManager: ObservableObject {
                 }
 
             } catch {
-                print("❌ Schadenfall abschliessen Fehler:")
-                dump(error)
-
                 await MainActor.run {
-                    letzteFehlermeldung = "\(error)"
+                    letzteFehlermeldung = "Status konnte nicht aktualisiert werden."
                 }
             }
         }
@@ -722,11 +707,9 @@ final class AWSDataSyncManager: ObservableObject {
                     }
                 }
             } catch {
-                print("❌ FEHLER:")
-                dump(error)
                 await MainActor.run {
                     ladeDaten = false
-                    letzteFehlermeldung = "\(error)"
+                    letzteFehlermeldung = "Schadenfall konnte nicht gespeichert werden."
                     completion(false)
                 }
             }
@@ -1024,7 +1007,7 @@ final class AWSDataSyncManager: ObservableObject {
         await MainActor.run {
             if portalInhalte.isEmpty {
                 portalInhalte = [
-                    PortalInhalt(id: "si-1", bereich: "Kontakt", titel: "Hauptsitz", inhalt: "Immobilientool, Hauptstrasse 18, 4104 Oberwil", sortierung: 1, sichtbar: true),
+                    PortalInhalt(id: "si-1", bereich: "Kontakt", titel: "Hauptsitz", inhalt: "Immobilientool, Musterstrasse 1, 4001 Basel", sortierung: 1, sichtbar: true),
                     PortalInhalt(id: "si-2", bereich: "Notfall", titel: "Notfallnummer", inhalt: "+41 00 000 00 00", sortierung: 2, sichtbar: true)
                 ]
             }
@@ -1274,8 +1257,7 @@ final class AWSDataSyncManager: ObservableObject {
                     await MainActor.run { ladeDaten = false; completion(true) }
                 }
             } catch {
-                print("❌ erstelleAuftrag error: \(error)")
-                await MainActor.run { ladeDaten = false; letzteFehlermeldung = "\(error)"; completion(false) }
+                await MainActor.run { ladeDaten = false; letzteFehlermeldung = "Auftrag konnte nicht erstellt werden."; completion(false) }
             }
         }
     }

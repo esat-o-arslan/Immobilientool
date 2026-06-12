@@ -104,19 +104,35 @@ function makeCrcTable(): number[] {
   return table;
 }
 
+// Blocks loopback, link-local, private RFC-1918, and AWS instance-metadata addresses.
+const BLOCKED_HOST_RE = /^(localhost|.*\.local)$/i;
+const BLOCKED_IP_RE = /^(127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[01])\.|169\.254\.|::1$|fc|fd)/i;
+
+function isSsrfHost(host: string): boolean {
+  return BLOCKED_HOST_RE.test(host) || BLOCKED_IP_RE.test(host);
+}
+
+function safeFileName(name: string): string {
+  return name.replace(/[/\\:*?"<>|]/g, '_').replace(/\.{2,}/g, '_');
+}
+
 export const handler = async (event: { arguments?: FtpArgs }) => {
   const args = event.arguments ?? {};
 
   if (!args.ftpHost || !args.ftpUser || !args.ftpPassword) {
     return { ok: false, message: 'FTP-Zugangsdaten fehlen (Host, Benutzer, Passwort).' };
   }
+  if (isSsrfHost(args.ftpHost)) {
+    return { ok: false, message: 'FTP-Host nicht erlaubt.' };
+  }
   if (!args.xmlContent) {
     return { ok: false, message: 'Kein XML-Inhalt übergeben.' };
   }
 
+  const baseName = safeFileName((args.zipFileName ?? 'portal_inserat').replace(/\.zip$/i, ''));
   const xmlBuf = Buffer.from(args.xmlContent, 'utf-8');
-  const xmlName = (args.zipFileName ?? 'portal_inserat').replace(/\.zip$/, '') + '.xml';
-  const zipName = (args.zipFileName ?? 'portal_inserat') + '.zip';
+  const xmlName = baseName + '.xml';
+  const zipName = baseName + '.zip';
   const zipBuf = createSimpleZip(xmlName, xmlBuf);
 
   const client = new ftp.Client(30000);
@@ -128,7 +144,7 @@ export const handler = async (event: { arguments?: FtpArgs }) => {
       port: args.ftpPort ?? 21,
       user: args.ftpUser,
       password: args.ftpPassword,
-      secure: args.ftpSecure ?? false,
+      secure: args.ftpSecure ?? true,
     });
 
     const remotePath = args.ftpRemotePath ?? '/';

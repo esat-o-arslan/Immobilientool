@@ -16,3 +16,4 @@ work/
 *.p12
 *.pem
 *.mobileprovision
+**/.claude/settings.local.json

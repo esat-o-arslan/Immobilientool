@@ -1281,7 +1281,7 @@ function KIAssistentView({ data, employee, ownEmployeeId, save, remove }: {
       return (prio[a.prioritaet ?? 'Normal'] ?? 2) - (prio[b.prioritaet ?? 'Normal'] ?? 2);
     });
 
-  const SYSTEM_PROMPT = `Du bist IMMOBILIENTOOL KI, der vollständige KI-Assistent von Immobilientool (Liestal, Schweiz). Mitarbeiter: ${employee?.name ?? 'unbekannt'}, Funktion: ${employee?.funktion ?? ''}.
+  const SYSTEM_PROMPT = `Du bist IMMOBILIENTOOL KI, der vollständige KI-Assistent von Immobilientool. Mitarbeiter: ${employee?.name ?? 'unbekannt'}, Funktion: ${employee?.funktion ?? ''}.
 Du kannst alles: Schadensfälle analysieren und vorbereiten, Handwerker zuweisen, E-Mails und Anschreiben verfassen, Dokumente erstellen, Daten auswerten, Rechtsfragen zur Schweizer Mietgesetzgebung beantworten. Antworte immer auf Deutsch, präzise und professionell.`;
 
   const SCHNELLSTARTS = [
@@ -4010,7 +4010,7 @@ function FallAuftragModal({ fall, data, save, onClose, onAuftragErstellt }: any)
                 <textarea rows={2} value={hinweis} onChange={e => setHinweis(e.target.value)} placeholder="z.B. Schlüssel bei uns im Büro …" style={{ border: '1px solid #ddd6cc', borderRadius: 12, padding: '10px 12px', fontSize: 13, resize: 'vertical', width: '100%' }} />
               </label>
               <label>Rechnungsadresse
-                <input value={rechnungsadresse} onChange={e => setRechnungsadresse(e.target.value)} placeholder="z.B. Immobilientool, Hauptstrasse 18" />
+                <input value={rechnungsadresse} onChange={e => setRechnungsadresse(e.target.value)} placeholder="z.B. Meinefirma GmbH, Musterstrasse 1" />
               </label>
             </div>
 
@@ -4938,10 +4938,10 @@ function ContractorList({ data, save, setView, setSelectedWorkerId }: any) {
                   <input value={draft.strasse} onChange={e => setDraft({ ...draft, strasse: e.target.value })} placeholder="Musterstrasse 12" />
                 </label>
                 <label>PLZ
-                  <input value={draft.plz} onChange={e => setDraft({ ...draft, plz: e.target.value })} placeholder="4104" />
+                  <input value={draft.plz} onChange={e => setDraft({ ...draft, plz: e.target.value })} placeholder="4001" />
                 </label>
                 <label>Ort
-                  <input value={draft.ort} onChange={e => setDraft({ ...draft, ort: e.target.value })} placeholder="Oberwil" />
+                  <input value={draft.ort} onChange={e => setDraft({ ...draft, ort: e.target.value })} placeholder="Basel" />
                 </label>
                 <label>Einsatzgebiet
                   <select value={draft.einsatzgebiet} onChange={e => setDraft({ ...draft, einsatzgebiet: e.target.value })}>
@@ -5100,8 +5100,8 @@ function HandwerkerStammdatenForm({ h, save }: { h: AnyRecord; save: (model: str
           <div className="hw-section-label">Adresse & Einsatzgebiet</div>
           <div className="form-grid">
             <F label="Strasse & Hausnummer" field="strasse" placeholder="Musterstrasse 12" col="1/-1" />
-            <F label="PLZ" field="plz" placeholder="4104" />
-            <F label="Ort" field="ort" placeholder="Oberwil" />
+            <F label="PLZ" field="plz" placeholder="4001" />
+            <F label="Ort" field="ort" placeholder="Basel" />
             <label style={{ gridColumn: '1/-1' }}>Einsatzgebiet
               <select value={d.einsatzgebiet} onChange={e => setD({ ...d, einsatzgebiet: e.target.value })}>
                 <option value="">— Region wählen —</option>
@@ -8444,9 +8444,9 @@ function generiereOpenImmoXml(inserat: AnyRecord): string {
   <anbieter>
     <anbieter_id>IMMOBILIENTOOL_IMMOBILIEN</anbieter_id>
     <firma>Immobilientool</firma>
-    <strasse>Hauptstrasse 18</strasse>
-    <plz>4104</plz>
-    <ort>Oberwil BL</ort>
+    <strasse>Musterstrasse 1</strasse>
+    <plz>4001</plz>
+    <ort>Basel</ort>
     <land iso_land="CHE"/>
     <telefon>+41000000000</telefon>
     <email>info@example.invalid</email>
@@ -8754,9 +8754,9 @@ function generiereInseratExport(inserat: AnyRecord, plattform: Plattform): strin
       bilder_anzahl: (inserat.bilder ?? []).length,
       kontakt: {
         firma: 'Immobilientool',
-        strasse: 'Hauptstrasse 18',
-        plz: '4104',
-        ort: 'Oberwil BL',
+        strasse: 'Musterstrasse 1',
+        plz: '4001',
+        ort: 'Basel',
         telefon: '+41 00 000 00 00',
         email: 'info@example.invalid',
       },
@@ -9174,7 +9174,7 @@ function InsérateView({ data, save }: any) {
                     </select>
                   </label>
                   <label>Adresse / Objekt
-                    <input value={draft.adresse ?? ''} onChange={e => setDraft({ ...draft, adresse: e.target.value })} placeholder="z.B. Musterstrasse 12, 4104 Oberwil" />
+                    <input value={draft.adresse ?? ''} onChange={e => setDraft({ ...draft, adresse: e.target.value })} placeholder="z.B. Musterstrasse 12, 4001 Basel" />
                   </label>
                   <label>Objekttyp
                     <select value={draft.typ ?? 'Wohnung'} onChange={e => setDraft({ ...draft, typ: e.target.value })}>
@@ -9998,7 +9998,7 @@ async function genAuftragPdf(template: AnyRecord, fields: Record<string, string>
   doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
   doc.text('Musterstrasse 1 · 4000 Basel · Tel. +41 00 000 00 00', lm, y + 6);
   doc.setFontSize(10);
-  doc.text(`Oberwil, ${fields.datum}`, rm, y + 2, { align: 'right' });
+  doc.text(`Basel, ${fields.datum}`, rm, y + 2, { align: 'right' });
   y += 16; hrule();
 
   // Contractor block — prefer selected Handwerker over template defaults
@@ -10527,7 +10527,7 @@ function AuftragModal({ template, data, save, onClose, onStatus }: any) {
                 <textarea rows={2} value={hinweis} onChange={(e) => setHinweis(e.target.value)} placeholder="z.B. Schlüssel bei uns im Büro, bitte vorab anrufen ..." style={{ border: '1px solid #ddd6cc', borderRadius: 12, padding: '10px 12px', fontSize: 13, resize: 'vertical', width: '100%' }} />
               </label>
               <label>Rechnungsadresse
-                <input value={rechnungsadresse} onChange={(e) => setRechnungsadresse(e.target.value)} placeholder="z.B. Immobilientool, Hauptstrasse 18" />
+                <input value={rechnungsadresse} onChange={(e) => setRechnungsadresse(e.target.value)} placeholder="z.B. Meinefirma GmbH, Musterstrasse 1" />
               </label>
             </div>
 
@@ -11126,7 +11126,7 @@ function Keys({ data, property, propertyId, save, remove, setSelectedWorkerId, s
     empfaengerAdresse: '',
     objekt: '',
     anzahl: 1,
-    ausgabeOrt: 'Oberwil BL',
+    ausgabeOrt: 'Basel',
     ausgegebenAm: new Date().toISOString().slice(0, 10),
     ausgegebenVon: '',
     bemerkung: '',

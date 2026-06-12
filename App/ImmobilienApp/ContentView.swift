@@ -1695,10 +1695,8 @@ struct LoginView: View {
                         Button {
                             if passwortSpeichern {
                                 _ = KeychainHelper.speichern(email, fuer: "login_email")
-                                _ = KeychainHelper.speichern(passwort, fuer: "login_passwort")
                             } else {
                                 KeychainHelper.loeschen(fuer: "login_email")
-                                KeychainHelper.loeschen(fuer: "login_passwort")
                             }
 
                             syncManager.login(email: email, kennwort: passwort)
@@ -1754,7 +1752,7 @@ struct LoginView: View {
                 }
             }
         }
-        .onAppear { email = KeychainHelper.laden(fuer: "login_email") ?? ""; passwort = KeychainHelper.laden(fuer: "login_passwort") ?? "" }
+        .onAppear { email = KeychainHelper.laden(fuer: "login_email") ?? "" }
     }
 }
 
