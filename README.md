@@ -1,6 +1,6 @@
 # Immobilientool
 
-Open-Source-Grundlage für Schweizer Immobilienverwaltungen mit Webportal,
+Kostenlos bereitgestellte, source-available Grundlage für Schweizer Immobilienverwaltungen mit Webportal,
 Mieter-/Eigentümer-App und Zeiterfassung. Die Vorlage ist für einen frischen,
 leeren Mandanten ausgelegt und enthält keine Liegenschaften, Mietenden,
 Eigentümerschaften, Mitarbeitenden, Dokumente oder produktiven AWS-Verbindungen.
@@ -69,6 +69,27 @@ Testläufe kann die Bestätigung mit `--yes` übersprungen werden.
 Eine vollständige Schritt-für-Schritt-Anleitung mit Vorbereitung, Branding,
 AWS-Deployment und Xcode-Abschluss steht in [`docs/SETUP.md`](docs/SETUP.md).
 
+## Hilfe für Einsteiger
+
+Wer wenig Erfahrung mit Terminal, AWS oder Xcode hat, kann die Installation
+gemeinsam mit einem KI-Coding-Assistenten durchführen:
+
+- [Claude Code von Anthropic](https://docs.anthropic.com/en/docs/claude-code/quickstart)
+- [OpenAI Codex](https://developers.openai.com/codex/quickstart)
+- [OpenAI Codex CLI](https://developers.openai.com/codex/cli)
+
+Öffne das Projekt im jeweiligen Assistenten und verwende beispielsweise:
+
+> Lies zuerst README.md und docs/SETUP.md. Führe mich Schritt für Schritt durch
+> die Installation des Immobilientools. Erkläre jede Rückfrage verständlich,
+> prüfe Voraussetzungen und führe keine kostenpflichtige oder irreversible
+> Aktion ohne meine ausdrückliche Bestätigung aus.
+
+KI-Assistenten können Fehler machen und Befehle sowie Dateien verändern.
+Änderungen, AWS-Kosten und Sicherheitsabfragen müssen deshalb vor der
+Bestätigung geprüft werden. Passwörter, API-Schlüssel und personenbezogene
+Daten dürfen nicht in Prompts oder öffentliche Chats kopiert werden.
+
 ## Updates
 
 Eine bestehende Installation prüft und aktualisiert sich über:
@@ -89,7 +110,7 @@ Nur nach einer neuen Version suchen:
 python3 update.py --check-only
 ```
 
-Weitere Einzelheiten stehen in [`docs/SETUP.md`](docs/SETUP.md#8-updates).
+Weitere Einzelheiten stehen in [`docs/SETUP.md`](docs/SETUP.md#9-updates).
 
 ## AWS-Anmeldung
 
@@ -162,6 +183,32 @@ erzeugt das Setup lokal; sie bleiben durch `.gitignore` ausgeschlossen.
 Sicherheitsmeldungen bitte nicht als öffentliche GitHub-Issue veröffentlichen,
 sondern gemäß `SECURITY.md` behandeln.
 
-## Lizenz
+## Feedback und Fehler
 
-MIT, siehe `LICENSE`.
+Feedback, Ideen für neue Funktionen und reproduzierbare Fehlerberichte sind
+willkommen:
+
+- GitHub Issues im Repository
+- E-Mail: [e.arslan2025@gmail.com](mailto:e.arslan2025@gmail.com)
+
+Bitte niemals Passwörter, AWS-Schlüssel, personenbezogene Daten oder Details zu
+noch nicht behobenen Sicherheitslücken öffentlich melden.
+
+## Urheberrecht, Nutzung und Haftung
+
+Copyright © 2026 Esat Arslan. Das Projekt und seine Bestandteile bleiben
+urheberrechtlich geschütztes Eigentum von Esat Arslan. Der Quellcode wird
+kostenlos zur Einsicht, internen Nutzung und Anpassung bereitgestellt.
+
+Weiterverkauf, entgeltliche Bereitstellung, kommerzieller Vertrieb,
+Unterlizenzierung oder Veröffentlichung als eigenes Produkt sind ohne vorherige
+schriftliche Erlaubnis untersagt. Unzulässige Nutzung oder Verwertung kann
+zivil- und, soweit anwendbar, strafrechtlich verfolgt werden.
+
+Die Software wird ohne Gewährleistung und auf eigenes Risiko bereitgestellt.
+Es wird keine Haftung für Datenverlust, Betriebsunterbruch, Sicherheitsvorfälle,
+Fehlkonfigurationen, Cloud-Kosten oder sonstige direkte oder indirekte Schäden
+übernommen, soweit ein Haftungsausschluss gesetzlich zulässig ist.
+
+Verbindlich ist die vollständige Lizenz in [`LICENSE`](LICENSE). Dieser Text
+ist keine Rechtsberatung.

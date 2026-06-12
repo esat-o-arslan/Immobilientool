@@ -1,21 +1,90 @@
-MIT License
+Esat Arslan Source-Available License 1.0
 
-Copyright (c) 2026 Immobilientool contributors
+Copyright (c) 2026 Esat Arslan. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. Ownership
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The software, source code, documentation, designs, names, and associated
+materials in this repository (the "Software") are protected by copyright and
+remain the property of Esat Arslan ("Licensor"). No ownership rights are
+transferred by making the Software publicly accessible.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. Permitted Use
+
+Subject to this License, the Licensor grants you a revocable, non-exclusive,
+non-transferable, royalty-free right to:
+
+- inspect and evaluate the Software;
+- install and use the Software for private, educational, or internal business
+  purposes; and
+- modify the Software for those permitted purposes.
+
+You must retain this License and all copyright notices in every permitted copy
+or modification.
+
+3. Prohibited Use
+
+Without the Licensor's prior written permission, you may not:
+
+- sell, rent, sublicense, or otherwise commercially exploit the Software;
+- offer paid hosting, installation, support, consulting, or software-as-a-
+  service primarily based on the Software;
+- redistribute, republish, mirror, or otherwise provide the Software or a
+  substantial part of it to third parties;
+- present the Software or a modified version as your own original product;
+- remove or obscure copyright, attribution, or license notices; or
+- use the name, identity, branding, or trademarks of Esat Arslan to advertise
+  or endorse a product or service.
+
+Commercial licensing, redistribution, partnerships, and other permissions may
+be requested at e.arslan2025@gmail.com.
+
+4. Contributions
+
+Unless separately agreed in writing, feedback, bug reports, and proposed
+changes do not transfer ownership of the Software. By intentionally submitting
+a contribution for inclusion, you grant the Licensor a perpetual, worldwide,
+royalty-free right to use, modify, reproduce, and distribute that contribution
+as part of the Software.
+
+5. No Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+A PARTICULAR PURPOSE, ACCURACY, SECURITY, AVAILABILITY, NON-INFRINGEMENT, OR
+SUITABILITY FOR A PARTICULAR PURPOSE. YOU ARE RESPONSIBLE FOR TESTING,
+CONFIGURATION, BACKUPS, DATA PROTECTION, SECURITY, AND ALL CLOUD, APPLE, OR
+THIRD-PARTY COSTS.
+
+6. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSOR SHALL NOT BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR
+PUNITIVE LOSS OR DAMAGE, INCLUDING DATA LOSS, BUSINESS INTERRUPTION, SECURITY
+INCIDENTS, LOST PROFITS, OR THIRD-PARTY CLAIMS, ARISING FROM THE SOFTWARE OR
+ITS USE.
+
+Nothing in this License excludes or limits liability where such exclusion or
+limitation is prohibited by mandatory law, including liability that cannot be
+excluded for unlawful intent or gross negligence.
+
+7. Termination and Enforcement
+
+Your rights under this License terminate automatically if you breach its
+terms. Upon termination, you must stop using and distributing the Software and
+delete all copies where legally possible. The Licensor reserves the right to
+pursue civil remedies and, where applicable, criminal complaints for
+unauthorised copying, distribution, commercial exploitation, misrepresentation,
+or other misuse.
+
+8. Governing Law
+
+This License is governed by Swiss law. Subject to mandatory jurisdiction
+rules, the courts at the Licensor's domicile in Switzerland shall have
+jurisdiction.
+
+9. Entire License
+
+This document is the complete license for the Software unless the Licensor
+grants additional permission in a separate written agreement. If any provision
+is unenforceable, the remaining provisions remain in effect.

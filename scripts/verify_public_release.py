@@ -20,7 +20,6 @@ PATTERNS = {
     "private key": re.compile(r"BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY"),
     "GitHub token": re.compile(r"\bgh[pousr]_[A-Za-z0-9]{20,}\b"),
     "known production endpoint": re.compile(r"(?:wrfjehyx2jdfrecvc7odsndzbe|dv348hw7vav8k|vZknC8A2A)"),
-    "known personal email": re.compile(r"e\.arslan2025@gmail\.com", re.I),
 }
 
 

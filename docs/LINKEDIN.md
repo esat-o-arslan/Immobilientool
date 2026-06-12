@@ -2,7 +2,8 @@
 
 ## Hauptbeitrag
 
-Ich veröffentliche heute **Immobilientool** als Open-Source-Grundlage für
+Ich veröffentliche heute **Immobilientool** als kostenlos verfügbare,
+source-available Grundlage für
 Schweizer Immobilienverwaltungen.
 
 Das Projekt verbindet drei Bereiche:
@@ -28,14 +29,15 @@ Hinweis: Das Projekt ist eine technische Grundlage. Datenschutz, Rollen,
 kantonale Anforderungen, Apple-Signing und AWS-Betrieb müssen vor einem
 produktiven Einsatz durch die jeweilige Organisation geprüft werden.
 
-#OpenSource #PropTech #Immobilienverwaltung #Digitalisierung #Schweiz
+#SourceAvailable #PropTech #Immobilienverwaltung #Digitalisierung #Schweiz
 #Basel #Aargau #Solothurn #AWS #SwiftUI #React
 
 ## Kürzere Variante
 
 **Immobilienverwaltung, offen gedacht.**
 
-Ich veröffentliche Immobilientool als Open-Source-Projekt: Webportal,
+Ich veröffentliche Immobilientool als kostenlos verfügbares,
+source-available Projekt: Webportal,
 Mieter-/Eigentümer-App und Zeiterfassung in einer gemeinsamen AWS-basierten
 Grundlage.
 
@@ -44,7 +46,7 @@ Assistenten für Branding, AWS-Deployment und Xcode-Konfiguration mit.
 
 GitHub: **https://github.com/esat-o-arslan/Immobilientool**
 
-#OpenSource #PropTech #Schweiz #SwiftUI #React #AWS
+#SourceAvailable #PropTech #Schweiz #SwiftUI #React #AWS
 
 ## Bildtexte
 

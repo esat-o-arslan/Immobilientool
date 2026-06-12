@@ -15,7 +15,30 @@ Bereitlegen:
 
 Ohne eigene Grafiken bleiben die neutralen Immobilientool-Grafiken aktiv.
 
-## 2. AWS anmelden
+## 2. Unterstützung durch einen KI-Assistenten
+
+Auch Personen ohne Programmier- oder Terminalerfahrung können sich bei der
+Einrichtung begleiten lassen:
+
+- [Claude Code Schnellstart](https://docs.anthropic.com/en/docs/claude-code/quickstart)
+- [OpenAI Codex Schnellstart](https://developers.openai.com/codex/quickstart)
+- [OpenAI Codex CLI](https://developers.openai.com/codex/cli)
+
+Nach der Installation den Assistenten im Ordner `Immobilientool` starten und
+folgenden Auftrag verwenden:
+
+```text
+Lies README.md und docs/SETUP.md vollständig. Hilf mir als Einsteiger bei der
+Installation. Prüfe jeden Schritt, erkläre Fachbegriffe und frage vor
+AWS-Deployments, kostenpflichtigen Ressourcen, Löschungen oder Änderungen an
+GitHub und Apple Developer ausdrücklich nach meiner Bestätigung.
+```
+
+Der KI-Assistent darf AWS-Passwörter, Secret Access Keys, Apple-Zertifikate
+oder Personendaten weder erhalten noch in Dateien oder Chats speichern. Seine
+Vorschläge und Terminalbefehle müssen vor Ausführung geprüft werden.
+
+## 3. AWS anmelden
 
 AWS CLI v2 installieren und ein separates Profil anlegen:
 
@@ -27,7 +50,7 @@ aws sts get-caller-identity --profile immobilientool
 Das Profil benötigt Berechtigungen für die im README genannten AWS-Dienste.
 Zugangsschlüssel werden nur von der AWS CLI verwaltet und nicht gespeichert.
 
-## 3. Setup starten
+## 4. Setup starten
 
 Im Terminal in den Projektordner wechseln:
 
@@ -47,7 +70,7 @@ Vor Änderungen zeigt das Setup eine Zusammenfassung und verlangt eine
 Bestätigung. Ungültige Dateipfade und zu kleine oder nicht quadratische Icons
 werden mit einer verständlichen Meldung abgelehnt.
 
-## 4. Was automatisch geschieht
+## 5. Was automatisch geschieht
 
 Nach der Bestätigung:
 
@@ -63,7 +86,7 @@ Es werden keine Liegenschaften, Mitarbeitenden oder anderen Personendaten aus
 einem bestehenden System kopiert. Handwerker können danach freiwillig aus
 einer eigenen CSV importiert werden.
 
-## 5. Erst lokal ausprobieren
+## 6. Erst lokal ausprobieren
 
 Für Branding und Xcode-Konfiguration ohne AWS-Ressourcen:
 
@@ -75,7 +98,7 @@ Das Setup darf erneut ausgeführt werden. Bestehende Antworten erscheinen als
 Vorgaben und können geändert werden. Bei den drei Grafikpfaden entfernt `-`
 eine zuvor gespeicherte Auswahl.
 
-## 6. Xcode abschliessen
+## 7. Xcode abschliessen
 
 Nach erfolgreichem Setup:
 
@@ -86,7 +109,7 @@ Nach erfolgreichem Setup:
 4. Beide Apps auf Simulator und echtem Gerät testen.
 5. Erst danach Archive für TestFlight oder den App Store erstellen.
 
-## 7. Typische Abbrüche
+## 8. Typische Abbrüche
 
 - `AWS-Anmeldung fehlt`: Profil mit `aws configure` oder SSO anmelden.
 - `App-Icon muss quadratisch sein`: quadratische Ausgangsdatei verwenden.
@@ -96,7 +119,7 @@ Nach erfolgreichem Setup:
 
 Das Setup kann nach einer Korrektur erneut gestartet werden.
 
-## 8. Updates
+## 9. Updates
 
 Neue veröffentlichte Versionen lassen sich direkt von GitHub laden:
 
