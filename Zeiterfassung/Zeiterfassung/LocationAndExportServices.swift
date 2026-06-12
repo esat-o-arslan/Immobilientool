@@ -100,11 +100,13 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
 
 extension LocationManager {
     var workLocation: CLLocation {
-        CLLocation(latitude: 47.5135, longitude: 7.5564)
+        let lat = UserDefaults.standard.object(forKey: SharedDefaults.workLocationLat) as? Double ?? 47.5135
+        let lon = UserDefaults.standard.object(forKey: SharedDefaults.workLocationLon) as? Double ?? 7.5564
+        return CLLocation(latitude: lat, longitude: lon)
     }
 
     var geofenceRadius: CLLocationDistance {
-        300
+        (UserDefaults.standard.object(forKey: SharedDefaults.workGeofenceRadius) as? Double) ?? 300
     }
 
     func isAtWork(currentLocation: CLLocation) -> Bool {

@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 import CoreLocation
+import MapKit
+import UniformTypeIdentifiers
 import UserNotifications
 
 struct SetupView: View {
@@ -105,12 +107,24 @@ struct SetupView: View {
 
 struct GeofencingSettingsView: View {
     @AppStorage(SharedDefaults.isGeofenceEnabled, store: .sharedGroup) private var isGeofenceEnabled = false
+    @AppStorage(SharedDefaults.workLocationName) private var locationName = ""
+    @AppStorage(SharedDefaults.workLocationLat) private var locationLat = 0.0
+    @AppStorage(SharedDefaults.workLocationLon) private var locationLon = 0.0
+    @AppStorage(SharedDefaults.workGeofenceRadius) private var geofenceRadius = 0.0
+
     @State private var locationManager = LocationManager()
+    @State private var searchText = ""
+    @State private var searchResults: [MKMapItem] = []
+    @State private var isSearching = false
+    @State private var searchTask: Task<Void, Never>?
+
+    private var displayName: String { locationName.isEmpty ? "Nicht gesetzt" : locationName }
+    private var effectiveRadius: Double { geofenceRadius > 0 ? geofenceRadius : 300 }
 
     var body: some View {
         Form {
-            Section {
-                Toggle("Automatischer Stopp (>300m)", isOn: $isGeofenceEnabled)
+            Section(header: Text("Status")) {
+                Toggle("Automatischer Stopp (>\(Int(effectiveRadius))m)", isOn: $isGeofenceEnabled)
                     .onChange(of: isGeofenceEnabled) { _, newValue in
                         if newValue {
                             locationManager.requestPermissions()
@@ -123,13 +137,13 @@ struct GeofencingSettingsView: View {
                 HStack {
                     Text("Büro-Standort")
                     Spacer()
-                    Text("Immobilientool").foregroundColor(.secondary)
+                    Text(displayName).foregroundColor(.secondary)
                 }
 
                 HStack {
                     Text("Radius")
                     Spacer()
-                    Text("\(Int(locationManager.geofenceRadius)) m").foregroundColor(.secondary)
+                    Text("\(Int(effectiveRadius)) m").foregroundColor(.secondary)
                 }
 
                 HStack {
@@ -144,7 +158,61 @@ struct GeofencingSettingsView: View {
                     Text(locationManager.isInsideWorkRegion ? "Im Arbeitsbereich" : "Außerhalb")
                         .foregroundColor(locationManager.isInsideWorkRegion ? .green : .secondary)
                 }
+            }
 
+            Section(header: Text("Standort suchen")) {
+                HStack(spacing: 8) {
+                    Image(systemName: "magnifyingglass").foregroundColor(.secondary)
+                    TextField("Adresse oder Firma eingeben …", text: $searchText)
+                        .autocorrectionDisabled()
+                        .onChange(of: searchText) { _, newValue in
+                            scheduleSearch(newValue)
+                        }
+                    if isSearching {
+                        ProgressView().scaleEffect(0.75)
+                    } else if !searchText.isEmpty {
+                        Button {
+                            searchText = ""
+                            searchResults = []
+                        } label: {
+                            Image(systemName: "xmark.circle.fill").foregroundColor(.secondary)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+
+                if !searchResults.isEmpty {
+                    ForEach(searchResults, id: \.self) { item in
+                        Button { applyLocation(item) } label: {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(item.name ?? "Unbekannt")
+                                    .foregroundColor(.primary)
+                                if let address = formatAddress(item.placemark) {
+                                    Text(address)
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+
+            Section(header: Text("Radius")) {
+                Stepper("\(Int(effectiveRadius)) m", value: Binding(
+                    get: { effectiveRadius },
+                    set: { geofenceRadius = $0 }
+                ), in: 50...2000, step: 50)
+                .onChange(of: geofenceRadius) { _, _ in
+                    locationManager.stopMonitoringWorkRegion()
+                    if isGeofenceEnabled { locationManager.startMonitoringWorkRegion() }
+                }
+            }
+
+            Section {
                 Button("Standortberechtigung anfragen") {
                     locationManager.requestPermissions()
                 }
@@ -154,6 +222,47 @@ struct GeofencingSettingsView: View {
         .onAppear {
             if isGeofenceEnabled { locationManager.startMonitoringWorkRegion() }
         }
+    }
+
+    private func scheduleSearch(_ query: String) {
+        searchTask?.cancel()
+        guard query.count > 2 else {
+            searchResults = []
+            isSearching = false
+            return
+        }
+        isSearching = true
+        searchTask = Task {
+            try? await Task.sleep(nanoseconds: 400_000_000)
+            guard !Task.isCancelled else { return }
+            let request = MKLocalSearch.Request()
+            request.naturalLanguageQuery = query
+            let search = MKLocalSearch(request: request)
+            let response = try? await search.start()
+            await MainActor.run {
+                isSearching = false
+                searchResults = response?.mapItems ?? []
+            }
+        }
+    }
+
+    private func applyLocation(_ item: MKMapItem) {
+        let coord = item.placemark.coordinate
+        locationLat = coord.latitude
+        locationLon = coord.longitude
+        locationName = item.name ?? formatAddress(item.placemark) ?? "Büro"
+        searchText = ""
+        searchResults = []
+        locationManager.stopMonitoringWorkRegion()
+        if isGeofenceEnabled { locationManager.startMonitoringWorkRegion() }
+    }
+
+    private func formatAddress(_ placemark: MKPlacemark) -> String? {
+        [placemark.thoroughfare, placemark.subThoroughfare, placemark.locality]
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
+            .nilIfEmpty
     }
 
     private func locationStatusText(_ status: CLAuthorizationStatus) -> String {
@@ -166,6 +275,10 @@ struct GeofencingSettingsView: View {
         @unknown default:          return "Unbekannt"
         }
     }
+}
+
+private extension String {
+    var nilIfEmpty: String? { isEmpty ? nil : self }
 }
 
 // MARK: - Mitteilungen
@@ -212,6 +325,14 @@ struct NotificationSettingsView: View {
 
 struct ICloudSyncSettingsView: View {
     @Environment(CloudSyncManager.self) private var cloudSync
+    @Environment(\.modelContext) private var modelContext
+
+    @State private var backupService = BackupRestoreService()
+    @State private var showingShare = false
+    @State private var backupURL: URL?
+    @State private var showingFilePicker = false
+    @State private var showingRestoreConfirm = false
+    @State private var pendingRestoreURL: URL?
 
     var body: some View {
         Form {
@@ -252,8 +373,114 @@ struct ICloudSyncSettingsView: View {
                     }
                 }
             }
+
+            Section(
+                header: Text("Nach Neuinstallation"),
+                footer: Text("Zeiteinträge werden automatisch aus iCloud geladen — das kann einige Minuten dauern. Einstellungen (Profil, Standort, Sollstunden) werden nicht automatisch wiederhergestellt und müssen per Backup importiert werden.")
+            ) {
+                HStack(spacing: 12) {
+                    Image(systemName: "1.circle.fill").foregroundStyle(.blue)
+                    Text("iCloud Sync aktivieren").font(.subheadline)
+                }
+                HStack(spacing: 12) {
+                    Image(systemName: "2.circle.fill").foregroundStyle(.blue)
+                    Text("Warten bis Einträge erscheinen").font(.subheadline)
+                }
+                HStack(spacing: 12) {
+                    Image(systemName: "3.circle.fill").foregroundStyle(.blue)
+                    Text("Backup importieren (Einstellungen)").font(.subheadline)
+                }
+            }
+
+            Section(
+                header: Text("Backup erstellen"),
+                footer: Text("Sichert alle Zeiteinträge, Spesen, Urlaub, Feiertage und Einstellungen als .zeitbackup-Datei.")
+            ) {
+                Button {
+                    Task {
+                        if let url = await backupService.createBackup(context: modelContext) {
+                            backupURL = url
+                            showingShare = true
+                        }
+                    }
+                } label: {
+                    HStack(spacing: 10) {
+                        if backupService.isWorking {
+                            ProgressView().scaleEffect(0.85)
+                        } else {
+                            Image(systemName: "square.and.arrow.up.fill").foregroundStyle(.blue)
+                        }
+                        Text(backupService.isWorking ? "Backup wird erstellt …" : "Backup erstellen & teilen")
+                    }
+                }
+                .disabled(backupService.isWorking)
+
+                if let msg = backupService.successMessage {
+                    Label(msg, systemImage: "checkmark.circle.fill")
+                        .foregroundStyle(.green).font(.caption)
+                }
+                if let err = backupService.errorMessage {
+                    Label(err, systemImage: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.red).font(.caption)
+                }
+            }
+
+            Section(
+                header: Text("Backup wiederherstellen"),
+                footer: Text("Achtung: Alle bestehenden Daten werden durch das Backup ersetzt.")
+            ) {
+                Button {
+                    backupService.successMessage = nil
+                    backupService.errorMessage = nil
+                    showingFilePicker = true
+                } label: {
+                    HStack(spacing: 10) {
+                        if backupService.isWorking {
+                            ProgressView().scaleEffect(0.85)
+                        } else {
+                            Image(systemName: "square.and.arrow.down.fill").foregroundStyle(.orange)
+                        }
+                        Text(backupService.isWorking ? "Wird wiederhergestellt …" : "Backup importieren")
+                    }
+                }
+                .disabled(backupService.isWorking)
+            }
         }
         .navigationTitle("iCloud Sync")
+        .sheet(isPresented: $showingShare) {
+            if let url = backupURL {
+                ShareSheet(activityItems: [url])
+            }
+        }
+        .fileImporter(
+            isPresented: $showingFilePicker,
+            allowedContentTypes: [.data],
+            allowsMultipleSelection: false
+        ) { result in
+            switch result {
+            case .success(let urls):
+                if let url = urls.first {
+                    pendingRestoreURL = url
+                    showingRestoreConfirm = true
+                }
+            case .failure(let error):
+                backupService.errorMessage = error.localizedDescription
+            }
+        }
+        .confirmationDialog(
+            "Backup wiederherstellen?",
+            isPresented: $showingRestoreConfirm,
+            titleVisibility: .visible
+        ) {
+            Button("Wiederherstellen", role: .destructive) {
+                if let url = pendingRestoreURL {
+                    Task { await backupService.restoreBackup(from: url, context: modelContext) }
+                }
+            }
+            Button("Abbrechen", role: .cancel) {}
+        } message: {
+            Text("Alle aktuellen Daten werden durch das Backup ersetzt. Diese Aktion kann nicht rückgängig gemacht werden.")
+        }
     }
 
     private var iCloudEnabledBinding: Binding<Bool> {
@@ -890,7 +1117,9 @@ struct VacationSettingsView: View {
 
     private func deleteVacation(at offsets: IndexSet) {
         for index in offsets {
-            modelContext.delete(vacationEntries[index])
+            let entry = vacationEntries[index]
+            guard !entry.isLocked else { continue }
+            modelContext.delete(entry)
         }
 
         do {

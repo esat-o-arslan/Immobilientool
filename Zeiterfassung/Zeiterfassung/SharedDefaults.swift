@@ -29,6 +29,10 @@ enum SharedDefaults {
     static let userName = "userName"
     static let userLastName = "userLastName"
     static let isGeofenceEnabled = "isGeofenceEnabled"
+    static let workLocationName = "workLocationName"
+    static let workLocationLat = "workLocationLat"
+    static let workLocationLon = "workLocationLon"
+    static let workGeofenceRadius = "workGeofenceRadius"
 
     static let entryDate = "entryDate"
 
